@@ -1,0 +1,20 @@
+html {
+  margin: 10px;
+}
+body {
+  background: #dcdcdc;
+}
+.submit-button {
+  text-align: center;
+}
+form {
+  margin: 15px auto;
+  max-width: 400px;
+}
+form #div_id_mobile_no div select {
+  margin-bottom: 10px;
+}
+h3 {
+  margin: 15px;
+  text-align: center;
+}

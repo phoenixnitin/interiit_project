@@ -1,0 +1,20 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.uploadPreview.min.js' %}"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <script type="text/javascript" src="{% static 'js/form.js' %}"></script>
+</head>
+<body>
+{% block content %}
+    <h3>{{ heading }}</h3>
+    <form method="POST" enctype='multipart/form-data'>
+        {% crispy form %}
+        <div class="submit-button col-xs-12"><button type="submit" class="save btn btn-default">Submit</button></div>
+    </form>
+{% endblock %}
+</body>
