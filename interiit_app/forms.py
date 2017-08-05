@@ -37,7 +37,7 @@ class Sports_Aquatics_Men_form(ModelForm):
             "i_m_200m": _('200m I.M.'),
             "free_relay_4x100m": _('4x100m Freestyle Relay'),
             "medley_relay_4x100m": _('4x100m Medley Relay'),
-        },
+        }
         widgets = {
             'mobile_no': PhoneNumberPrefixWidget,
         }
@@ -63,7 +63,7 @@ class Sports_Aquatics_Women_form(ModelForm):
             "back_stroke_50m": _('50m Back Stroke'),
             "butterfly_50m": _('50m Butterfly'),
             "freestyle_relay_4x50m": _('4x50m Freestyle Relay'),
-        },
+        }
         widgets = {
             'mobile_no': PhoneNumberPrefixWidget,
         }
@@ -85,7 +85,7 @@ class Sports_Aquatics_Staff_form(ModelForm):
             "photo": _('Photo'),
             "food": _('Food'),
             "designation": _('Designation'),
-        },
+        }
         widgets = {
             'mobile_no': PhoneNumberPrefixWidget,
         }
