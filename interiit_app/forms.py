@@ -2,9 +2,7 @@ from django.forms import ModelForm
 from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff
 from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
-from crispy_forms.layout import Layout
-from crispy_forms.bootstrap import TabHolder, Tab
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 class Sports_Aquatics_Men_form(ModelForm):
     helper = FormHelper()
@@ -39,7 +37,10 @@ class Sports_Aquatics_Men_form(ModelForm):
             "medley_relay_4x100m": _('4x100m Medley Relay'),
         }
         widgets = {
-            'mobile_no': PhoneNumberPrefixWidget,
+            'mobile_no': PhoneNumberInternationalFallbackWidget,
+        }
+        help_texts = {
+            'mobile_no': _('Please enter your country code, if not from India'),
         }
 
 class Sports_Aquatics_Women_form(ModelForm):
@@ -65,7 +66,10 @@ class Sports_Aquatics_Women_form(ModelForm):
             "freestyle_relay_4x50m": _('4x50m Freestyle Relay'),
         }
         widgets = {
-            'mobile_no': PhoneNumberPrefixWidget,
+            'mobile_no': PhoneNumberInternationalFallbackWidget,
+        }
+        help_texts = {
+            'mobile_no': _('Please enter your country code, if not from India'),
         }
 
 class Sports_Aquatics_Staff_form(ModelForm):
@@ -87,5 +91,8 @@ class Sports_Aquatics_Staff_form(ModelForm):
             "designation": _('Designation'),
         }
         widgets = {
-            'mobile_no': PhoneNumberPrefixWidget,
+            'mobile_no': PhoneNumberInternationalFallbackWidget,
+        }
+        help_texts = {
+            'mobile_no': _('Please enter your country code, if not from India'),
         }
