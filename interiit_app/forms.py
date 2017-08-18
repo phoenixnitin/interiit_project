@@ -13,11 +13,13 @@ class Sports_Aquatics_Men_form(ModelForm):
         fields = '__all__'
         labels = {
             "iit_name": _('IIT'),
-            "staff_name": _('Name'),
+            "student_name": _('Name'),
             "blood_group": _('Blood Group'),
             "mobile_no": _('Contact No.'),
             "email": _('E-mail'),
             "photo": _('Photo'),
+            "arrival": _('Arrival Date'),
+            "departure": _('Departure Date'),
             "food": _('Food'),
             "free_50m": _('50m Free'),
             "free_100m": _('100m Free'),
@@ -41,6 +43,8 @@ class Sports_Aquatics_Men_form(ModelForm):
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
+            'arrival': _('Please enter in format: DD-MM-YYYY'),
+            'departure': _('Please enter in format: DD-MM-YYYY'),
         }
 
 class Sports_Aquatics_Women_form(ModelForm):
@@ -52,11 +56,13 @@ class Sports_Aquatics_Women_form(ModelForm):
         fields = '__all__'
         labels = {
             "iit_name": _('IIT'),
-            "staff_name": _('Name'),
+            "student_name": _('Name'),
             "blood_group": _('Blood Group'),
             "mobile_no": _('Contact No.'),
             "email": _('E-mail'),
             "photo": _('Photo'),
+            "arrival": _('Arrival Date'),
+            "departure": _('Departure Date'),
             "food": _('Food'),
             "freestyle_50m": _('50m Freestyle'),
             "freestyle_100m": _('100m Freestyle'),
@@ -70,6 +76,8 @@ class Sports_Aquatics_Women_form(ModelForm):
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
+            'arrival': _('Please enter in format: DD-MM-YYYY'),
+            'departure': _('Please enter in format: DD-MM-YYYY'),
         }
 
 class Sports_Aquatics_Staff_form(ModelForm):
@@ -87,6 +95,8 @@ class Sports_Aquatics_Staff_form(ModelForm):
             "mobile_no": _('Contact No.'),
             "email": _('E-mail'),
             "photo": _('Photo'),
+            "arrival": _('Arrival Date'),
+            "departure": _('Departure Date'),
             "food": _('Food'),
             "designation": _('Designation'),
         }
@@ -95,4 +105,6 @@ class Sports_Aquatics_Staff_form(ModelForm):
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
+            'arrival': _('Please enter in format: DD-MM-YYYY'),
+            'departure': _('Please enter in format: DD-MM-YYYY'),
         }

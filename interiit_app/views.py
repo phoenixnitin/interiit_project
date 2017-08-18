@@ -10,7 +10,7 @@ class Sports_Aquatics_Men_view(View):
     @xframe_options_exempt
     def get(self, request, *args, **kwargs):
         form = Sports_Aquatics_Men_form()
-        return render(request, 'register.html', {'form':form, 'heading': 'Aquatics Meet Form'})
+        return render(request, 'register.html', {'form':form, 'heading': 'Aquatics Meet Form : Men'})
 
     @xframe_options_exempt
     def post(self, request, *args, **kwargs):
@@ -40,7 +40,7 @@ class Sports_Aquatics_Women_view(View):
     @xframe_options_exempt
     def get(self, request, *args, **kwargs):
         form = Sports_Aquatics_Women_form()
-        return render(request, 'register.html', {'form':form, 'heading': 'Aquatics Meet Form'})
+        return render(request, 'register.html', {'form':form, 'heading': 'Aquatics Meet Form : Women'})
 
     @xframe_options_exempt
     def post(self, request, *args, **kwargs):
@@ -70,7 +70,7 @@ class Sports_Aquatics_Staff_view(View):
     @xframe_options_exempt
     def get(self, request, *args, **kwargs):
         form = Sports_Aquatics_Staff_form()
-        return render(request, 'register.html', {'form':form, 'heading': 'Aquatics Meet Form'})
+        return render(request, 'register.html', {'form':form, 'heading': 'Aquatics Meet Form : Staff'})
 
     @xframe_options_exempt
     def post(self, request, *args, **kwargs):
