@@ -26,7 +26,7 @@ class Sports_Aquatics_Men_view(View):
             return HttpResponse('Registration completed successfully')
         else:
             print('invalid form')
-            return HttpResponse('Your registration is not valid. Please enter details currectly')
+            return HttpResponse('Your registration is not valid. Please enter details correctly')
 
 class Sports_Aquatics_Women_view(View):
     @xframe_options_exempt
@@ -48,7 +48,7 @@ class Sports_Aquatics_Women_view(View):
             return HttpResponse('Registration completed successfully')
         else:
             print('invalid form')
-            return HttpResponse('Your registration is not valid. Please enter details currectly')
+            return HttpResponse('Your registration is not valid. Please enter details correctly')
 
 class Sports_Aquatics_Staff_view(View):
     @xframe_options_exempt
@@ -71,4 +71,4 @@ class Sports_Aquatics_Staff_view(View):
             return HttpResponse('Registration completed successfully')
         else:
             print('invalid form')
-            return HttpResponse('Your registration is not valid. Please enter details currectly')
+            return HttpResponse('Your registration is not valid. Please enter details correctly')
