@@ -2,6 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 import os
 from datetime import datetime
+from django.utils import timezone
 # from uuid import uuid4
 # Create your models here.
 
@@ -67,7 +68,7 @@ class Sport_Aquatics_Men(models.Model):
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
     arrival = models.CharField(max_length=20)
     departure = models.CharField(max_length=20)
-    timestamp = models.DateTimeField(default=datetime.now(), editable=False)
+    timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=10, default='VEG', choices=CommomChoices.foodChoices)
     water_polo = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
     free_50m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
@@ -121,7 +122,7 @@ class Sport_Aquatics_Women(models.Model):
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
     arrival = models.CharField(max_length=20)
     departure = models.CharField(max_length=20)
-    timestamp = models.DateTimeField(default=datetime.now(), editable=False)
+    timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=10, default='VEG', choices=CommomChoices.foodChoices)
     freestyle_50m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
     freestyle_100m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
@@ -151,6 +152,6 @@ class Sport_Aquatics_Staff(models.Model):
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
     arrival = models.CharField(max_length=20)
     departure = models.CharField(max_length=20)
-    timestamp = models.DateTimeField(default=datetime.now(), editable=False)
+    timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=10, default='VEG', choices=CommomChoices.foodChoices)
     designation = models.CharField(max_length=30)
