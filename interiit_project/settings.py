@@ -25,7 +25,7 @@ SECRET_KEY = 'v%84l2nn#0ro66at@-ly$nacpz_(qly5=i&2sw^5bp^+_=@&&q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.100', '10.22.19.208']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '132.148.91.220', 'interiit.com']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # PHONENUMBER_DB_FORMAT = 'NATIONAL'
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'interiit_app',
     'crispy_forms',
     'phonenumber_field',
-    'floppyforms',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +91,7 @@ DATABASES = {
         'PORT': '',
     }
 }
+
 MEDIA_URL = '/media_storage/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_storage')
 
