@@ -1,8 +1,16 @@
 from django.conf.urls import url
-from .views import Sports_Aquatics_Men_view, Sports_Aquatics_Women_view, Sports_Aquatics_Staff_view
+from . import views
+from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'^sport/aquatics/men/$', Sports_Aquatics_Men_view.as_view(), name='aquatics_men'),
-    url(r'^sport/aquatics/women/$', Sports_Aquatics_Women_view.as_view(), name='aquatics_women'),
-    url(r'^sport/aquatics/staff/$', Sports_Aquatics_Staff_view.as_view(), name='aquatics_staff'),
+    url(r'^sport/(?P<sport_name>[a-zA-Z0-9_.-]+)/(?P<category>[a-zA-Z0-9_.-]+)/$', views.Sports_Register_view.as_view(), name='sports_register'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
+router = routers.SimpleRouter()
+router.register(r'sport/download/aquatics/men', views.json_aquatics_men, 'json_aquatics_men')
+router.register(r'sport/download/aquatics/women', views.json_aquatics_women, 'json_aquatics_women')
+router.register(r'sport/download/aquatics/staff', views.json_aquatics_staff, 'json_aquatics_staff')
+
+urlpatterns += router.urls
