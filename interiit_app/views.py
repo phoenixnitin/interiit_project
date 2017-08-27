@@ -44,7 +44,7 @@ class Sports_Register_view(View):
         if sport_name == 'aquatics':
             if category == 'men':
                 form = Sports_Aquatics_Men_form(request.POST, request.FILES)
-                list = ['water_polo', 'free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m',
+                list = ['free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m',
                         'back_100m', 'back_200m', 'breast_50m', 'breast_100m', 'breast_200m', 'b_fly_50m', 'b_fly_100m',
                         'i_m_200m', 'free_relay_4x100m', 'medley_relay_4x100m']
             elif category == 'women':
