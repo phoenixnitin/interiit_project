@@ -1,4 +1,4 @@
-# interiit_project
+# InterIIT Backend
 Follow these steps to setup the environment:
 1. Clone this repository
 2. Install pip, virtualenv and postgresql
