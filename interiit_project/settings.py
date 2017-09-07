@@ -25,7 +25,7 @@ SECRET_KEY = 'v%84l2nn#0ro66at@-ly$nacpz_(qly5=i&2sw^5bp^+_=@&&q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '132.148.91.220', 'interiit.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '132.148.91.220', 'interiit.com', 'server.interiit.com']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 PHONENUMBER_DEFAULT_FORMAT = 'NATIONAL'
@@ -132,4 +132,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'interiit_app/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

@@ -19,7 +19,9 @@ class Sports_Aquatics_Men_form(ModelForm):
             "email": _('E-mail'),
             "photo": _('Photo'),
             "arrival": _('Arrival Date'),
+            "arrival_time":_('Arrival Time'),
             "departure": _('Departure Date'),
+            "departure_time":_('Departure Time'),
             "food": _('Food'),
             "free_50m": _('50m Free'),
             "free_100m": _('100m Free'),
@@ -45,6 +47,8 @@ class Sports_Aquatics_Men_form(ModelForm):
             'mobile_no': _('Please enter your country code, if not from India'),
             'arrival': _('Please enter in format: DD-MM-YYYY'),
             'departure': _('Please enter in format: DD-MM-YYYY'),
+            'arrival_time':_('Please enter in format HH:MM AM/PM'),
+            'departure_time':_('Please enter in format HH:MM AM/PM'),
         }
 
 class Sports_Aquatics_Women_form(ModelForm):
@@ -62,7 +66,9 @@ class Sports_Aquatics_Women_form(ModelForm):
             "email": _('E-mail'),
             "photo": _('Photo'),
             "arrival": _('Arrival Date'),
+            "arrival_time":_('Arrival Time'),
             "departure": _('Departure Date'),
+            "departure_time":_('Departure Time'),
             "food": _('Food'),
             "freestyle_50m": _('50m Freestyle'),
             "freestyle_100m": _('100m Freestyle'),
@@ -78,6 +84,8 @@ class Sports_Aquatics_Women_form(ModelForm):
             'mobile_no': _('Please enter your country code, if not from India'),
             'arrival': _('Please enter in format: DD-MM-YYYY'),
             'departure': _('Please enter in format: DD-MM-YYYY'),
+            'arrival_time':_('Please enter in format HH:MM AM/PM'),
+            'departure_time':_('Please enter in format HH:MM AM/PM'),
         }
 
 class Sports_Aquatics_Staff_form(ModelForm):
@@ -96,7 +104,9 @@ class Sports_Aquatics_Staff_form(ModelForm):
             "email": _('E-mail'),
             "photo": _('Photo'),
             "arrival": _('Arrival Date'),
+            "arrival_time":_('Arrival Time'),
             "departure": _('Departure Date'),
+            "departure_time":_('Departure Time'),
             "food": _('Food'),
             "designation": _('Designation'),
         }
@@ -107,4 +117,6 @@ class Sports_Aquatics_Staff_form(ModelForm):
             'mobile_no': _('Please enter your country code, if not from India'),
             'arrival': _('Please enter in format: DD-MM-YYYY'),
             'departure': _('Please enter in format: DD-MM-YYYY'),
+            'arrival_time':_('Please enter in format HH:MM AM/PM'),
+            'departure_time':_('Please enter in format HH:MM AM/PM'),
         }
