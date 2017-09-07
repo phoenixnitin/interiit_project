@@ -25,7 +25,7 @@ class Sports_Register_view(View):
                 form = Sports_Aquatics_Women_form
                 heading = 'Aquatics Meet Form : Women'
                 print('case women')
-            elif category == 'staff':
+            elif category == 'facultyandstaff':
                 form = Sports_Aquatics_Staff_form
                 heading = 'Aquatics Meet Form : Staff'
                 print('case staff')
@@ -52,7 +52,7 @@ class Sports_Register_view(View):
             elif category == 'women':
                 form = Sports_Aquatics_Women_form(request.POST, request.FILES)
                 list = ['freestyle_50m', 'freestyle_100m', 'breast_stroke_50m', 'back_stroke_50m', 'butterfly_50m']
-            elif category == 'staff':
+            elif category == 'facultyandstaff':
                 form = Sports_Aquatics_Staff_form(request.POST, request.FILES)
             else:
                 print('Category doesn\'t exist')

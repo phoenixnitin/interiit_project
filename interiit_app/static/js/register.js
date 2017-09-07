@@ -34,10 +34,10 @@ function getRegistrationForm(){
     var sport = $('#sel1').val();
     var category = $('#sel2').val();
     var url;
-    if (category === 'staff')
+    if (category === 'facultyandstaff')
     {
         switch(sport){
-            case 'aquatics': url = host+'sport/'+sport+'/staff';break;
+            case 'aquatics': url = host+'sport/'+sport+'/facultyandstaff';break;
             default: url="";
         }
     }
