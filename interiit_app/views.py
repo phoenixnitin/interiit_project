@@ -7,6 +7,10 @@ from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Sta
 from django.http import HttpResponseRedirect
 from django.views.decorators.clickjacking import xframe_options_exempt
 import json
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
 # Create your views here.
 
 class Sports_Register_view(View):
@@ -44,12 +48,12 @@ class Sports_Register_view(View):
         if sport_name == 'aquatics':
             if category == 'men':
                 form = Sports_Aquatics_Men_form(request.POST, request.FILES)
-                list = ['water_polo', 'free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m',
+                list = ['free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m',
                         'back_100m', 'back_200m', 'breast_50m', 'breast_100m', 'breast_200m', 'b_fly_50m', 'b_fly_100m',
-                        'i_m_200m', 'free_relay_4x100m', 'medley_relay_4x100m']
+                        'i_m_200m']
             elif category == 'women':
                 form = Sports_Aquatics_Women_form(request.POST, request.FILES)
-                list = ['freestyle_50m', 'freestyle_100m', 'breast_stroke_50m', 'back_stroke_50m', 'butterfly_50m', 'freestyle_relay_4x50m']
+                list = ['freestyle_50m', 'freestyle_100m', 'breast_stroke_50m', 'back_stroke_50m', 'butterfly_50m']
             elif category == 'staff':
                 form = Sports_Aquatics_Staff_form(request.POST, request.FILES)
             else:
@@ -64,12 +68,24 @@ class Sports_Register_view(View):
         count = 0
         # print('**kwargs', **kwargs)
         for item in list:
-            if dictionary[item] == "YES":
+            if dictionary[item] == "YES" and item!='water_polo' and item!='free_relay_4x100m' and item!=:
                 count = count + 1
         print(count)
         if form.is_valid():
             if category == 'staff' or count <= 3:
                 print('form is valid')
+                opts = Options()
+                opts.binary_location = "/usr/bin/chromium-browser"
+                driver = webdriver.Chrome(chrome_options=opts)
+                driver.get('https://www.qrstuff.com/')
+                driver.find_element_by_id('qrcode-type-TEXT').click()
+                driver.find_element_by_id('qrcode-data-text').clear()
+                datastring=""
+                for key in dictionary:
+                	if str(key)!='csrfmiddlewaretoken' and dictionary[key]!="YES" and dictionary[key]!="NO":
+                		datastring+=str(key)+' : '+str(dictionary[key])+'\n'
+                driver.find_element_by_id('qrcode-data-text').send_keys(datastring)
+                driver.find_element_by_id('qrcode-preview-download-button').click()
                 form.save()
                 return HttpResponse('Registration completed successfully')
             else:
