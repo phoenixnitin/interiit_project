@@ -41,12 +41,15 @@ function getRegistrationForm(){
             default: url="";
         }
     }
-    else{
+    else if (category === 'participant'){
         var gender = $('#sel3').val();
         switch(sport){
             case 'aquatics': url = host+'sport/'+sport+'/'+gender;break;
             default: url = "";
         }
+    }
+    else {
+        url = "";
     }
 
     if(url !== ""){
