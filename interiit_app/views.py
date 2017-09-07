@@ -8,8 +8,6 @@ from django.http import HttpResponseRedirect
 from django.views.decorators.clickjacking import xframe_options_exempt
 import json
 import time
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 # Create your views here.
 
@@ -39,7 +37,7 @@ class Sports_Register_view(View):
         if form is None:
             return HttpResponse('Registration form doesn\'t exist')
         else:
-            return render(request, 'register.html', {'form': form, 'heading': heading})
+            return render(request, 'registration-form.html', {'form': form, 'heading': heading})
 
     @xframe_options_exempt
     def post(self, request, sport_name, category, *args, **kwargs):
@@ -68,24 +66,12 @@ class Sports_Register_view(View):
         count = 0
         # print('**kwargs', **kwargs)
         for item in list:
-            if dictionary[item] == "YES" and item!='water_polo' and item!='free_relay_4x100m' and item!=:
+            if dictionary[item] == "YES":
                 count = count + 1
         print(count)
         if form.is_valid():
             if category == 'staff' or count <= 3:
                 print('form is valid')
-                opts = Options()
-                opts.binary_location = "/usr/bin/chromium-browser"
-                driver = webdriver.Chrome(chrome_options=opts)
-                driver.get('https://www.qrstuff.com/')
-                driver.find_element_by_id('qrcode-type-TEXT').click()
-                driver.find_element_by_id('qrcode-data-text').clear()
-                datastring=""
-                for key in dictionary:
-                	if str(key)!='csrfmiddlewaretoken' and dictionary[key]!="YES" and dictionary[key]!="NO":
-                		datastring+=str(key)+' : '+str(dictionary[key])+'\n'
-                driver.find_element_by_id('qrcode-data-text').send_keys(datastring)
-                driver.find_element_by_id('qrcode-preview-download-button').click()
                 form.save()
                 return HttpResponse('Registration completed successfully')
             else:
@@ -96,6 +82,10 @@ class Sports_Register_view(View):
             if count <= 3:
                 return HttpResponse('Your registration is not valid. Please enter details correctly')
             return HttpResponse('You can only register for a maximum of three events')
+
+class Register_Page(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'register.html')
 
 class json_aquatics_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Men_serializer

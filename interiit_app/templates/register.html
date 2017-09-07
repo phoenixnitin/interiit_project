@@ -1,20 +1,42 @@
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <!--<script type="text/javascript" src="{% static 'js/jquery.uploadPreview.min.js' %}"></script>-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="{% static 'css/form.css' %}">
-  <script type="text/javascript" src="{% static 'js/form.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 </head>
 <body>
-{% block content %}
-    <h3>{{ heading }}</h3>
-    <form method="POST" enctype='multipart/form-data'>
-        {% crispy form %}
-        <div class="submit-button col-xs-12"><button type="submit" class="save btn btn-default">Submit</button></div>
-    </form>
-{% endblock %}
+    <div id="register-page">
+        <div class="container">
+            <div id='sport-selector' class="form-group">
+                <label for="sel1">Select Sport:</label>
+                <select class="form-control" id="sel1">
+                    <option value="aquatics">Aquatics</option>
+                </select>
+            </div>
+
+            <div id='category-selector' class="form-group">
+                <label for="sel1">Select Category:</label>
+                <select class="form-control" id="sel2">
+                    <option value="---">---</option>
+                    <option value="participant">Participant</option>
+                    <option value="staff">Staff</option>
+                </select>
+            </div>
+
+            <div id='gender-selector' class="form-group hide">
+                <label for="sel1">Select Gender:</label>
+                <select class="form-control" id="sel3">
+                    <option value="men">Male</option>
+                    <option value="women">Female</option>
+                </select>
+            </div>
+        </div>
+        <div id="btn1" class="col-xs-12">
+            <button id='btn-click' class="btn btn-default" onclick="getRegistrationForm()">Get Registration form</button>
+        </div>
+    </div>
 </body>

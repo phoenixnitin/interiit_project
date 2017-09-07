@@ -5,6 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^sport/(?P<sport_name>[a-zA-Z0-9_.-]+)/(?P<category>[a-zA-Z0-9_.-]+)/$', views.Sports_Register_view.as_view(), name='sports_register'),
+    url(r'^sport/register/$', views.Register_Page.as_view(), name='register-page'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
