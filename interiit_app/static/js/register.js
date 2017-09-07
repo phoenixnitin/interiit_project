@@ -30,21 +30,21 @@ function gender() {
 }
 
 function getRegistrationForm(){
-    var host = 'http://server.interiit.com/';
+    var host = window.location.origin;
     var sport = $('#sel1').val();
     var category = $('#sel2').val();
     var url;
     if (category === 'facultyandstaff')
     {
         switch(sport){
-            case 'aquatics': url = host+'sport/'+sport+'/facultyandstaff';break;
+            case 'aquatics': url = host+'/sport/'+sport+'/facultyandstaff';break;
             default: url="";
         }
     }
     else if (category === 'participant'){
         var gender = $('#sel3').val();
         switch(sport){
-            case 'aquatics': url = host+'sport/'+sport+'/'+gender;break;
+            case 'aquatics': url = host+'/sport/'+sport+'/'+gender;break;
             default: url = "";
         }
     }
