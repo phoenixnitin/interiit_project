@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff
 from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
@@ -42,6 +43,7 @@ class Sports_Aquatics_Men_form(ModelForm):
         }
         widgets = {
             'mobile_no': PhoneNumberInternationalFallbackWidget,
+            'address': forms.Textarea(attrs={'cols': 80, 'rows': 6}),
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
@@ -80,6 +82,7 @@ class Sports_Aquatics_Women_form(ModelForm):
         }
         widgets = {
             'mobile_no': PhoneNumberInternationalFallbackWidget,
+            'address': forms.Textarea(attrs={'cols': 80, 'rows': 6}),
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
@@ -114,6 +117,7 @@ class Sports_Aquatics_Staff_form(ModelForm):
         }
         widgets = {
             'mobile_no': PhoneNumberInternationalFallbackWidget,
+            'address': forms.Textarea(attrs={'cols': 80, 'rows': 6}),
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
