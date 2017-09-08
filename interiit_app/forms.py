@@ -45,6 +45,7 @@ class Sports_Aquatics_Men_form(ModelForm):
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
+            'photo': _('Please upload passport size photo'),
             'arrival': _('Please enter in format: DD-MM-YYYY'),
             'departure': _('Please enter in format: DD-MM-YYYY'),
             'arrival_time':_('Please enter in format HH:MM AM/PM'),
@@ -82,6 +83,7 @@ class Sports_Aquatics_Women_form(ModelForm):
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
+            'photo': _('Please upload passport size photo'),
             'arrival': _('Please enter in format: DD-MM-YYYY'),
             'departure': _('Please enter in format: DD-MM-YYYY'),
             'arrival_time':_('Please enter in format HH:MM AM/PM'),
@@ -115,6 +117,7 @@ class Sports_Aquatics_Staff_form(ModelForm):
         }
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
+            'photo': _('Please upload passport size photo'),
             'arrival': _('Please enter in format: DD-MM-YYYY'),
             'departure': _('Please enter in format: DD-MM-YYYY'),
             'arrival_time':_('Please enter in format HH:MM AM/PM'),
