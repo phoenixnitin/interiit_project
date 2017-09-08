@@ -1,18 +1,40 @@
-html{
-  margin: 10px;
-}
-
-body {
-	background: #dcdcdc;
+body{
+  background-repeat: no-repeat;
+  background-image: url("../img/background.jpg");
+  background-attachment: fixed;
+  font-family: 'Muli',"Helvetica",Arial,sans-serif;
 }
 
 #register-page{
-  margin: 10px;
+  margin: 15px;
+  .container{
+    margin: 15px auto;
+    background: #fdfdfd;
+    max-width: 480px;
+    border: 2px rgba(0, 0, 0, 0.5);
+    border-style: solid;
+    border-radius: 10px;
+    p {
+      margin: 10px 22px;
+      font-size: 16px;
+    }
+    #sport-selector{
+      margin-top:10px;
+    }
+  }
   .form-group{
     margin: 0 auto 10px auto;
     max-width: 400px;
   }
   #btn1{
     text-align: center;
+    margin-bottom: 15px;
   }
+}
+
+.btn-primary{
+  background-color: #1c3f50;
+}
+.btn-primary:hover .btn-primary:active .btn-primary:focus{
+  background-color: rgba(28, 63, 80, 0.6);
 }

@@ -11,6 +11,7 @@ $(document).ready(function(){
     $('#sel3').bind('change',function(){
         gender();
     });
+    $('.container select').addClass('btn-primary');
 });
 
 function sport() {
