@@ -15,8 +15,8 @@ body {
   border-style: solid;
   border-radius: 10px;
 }
-#register-page .container p {
-  margin: 10px 22px;
+#register-page .container #description {
+  margin-top: 10px;
   font-size: 16px;
 }
 #register-page .container #sport-selector {

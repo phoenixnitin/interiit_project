@@ -2,17 +2,28 @@
  * Created by light on 7/9/17.
  */
 $(document).ready(function(){
+    setTopMargin();
     $('#sel1').bind('change',function(){
         sport();
     });
     $('#sel2').bind('change',function(){
         category();
+        setTopMargin();
     });
     $('#sel3').bind('change',function(){
         gender();
     });
     $('.container select').addClass('btn-primary');
+    $(window).resize(function () {
+        setTopMargin();
+    });
 });
+
+function setTopMargin() {
+    var winHeight = $(window).height();
+    var containerHeight = $('.container').height();
+    $('.container').css('margin-top', (winHeight-containerHeight)/2);
+}
 
 function sport() {
     return $('#sel1').val();

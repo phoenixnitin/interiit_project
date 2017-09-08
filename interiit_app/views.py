@@ -43,15 +43,18 @@ class Sports_Register_view(View):
     def post(self, request, sport_name, category, *args, **kwargs):
         form = ''
         list = ''
+        extra_text = ''
         if sport_name == 'aquatics':
             if category == 'men':
                 form = Sports_Aquatics_Men_form(request.POST, request.FILES)
                 list = ['free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m',
                         'back_100m', 'back_200m', 'breast_50m', 'breast_100m', 'breast_200m', 'b_fly_50m', 'b_fly_100m',
                         'i_m_200m']
+                extra_text = ', other than water polo and relays'
             elif category == 'women':
                 form = Sports_Aquatics_Women_form(request.POST, request.FILES)
                 list = ['freestyle_50m', 'freestyle_100m', 'breast_stroke_50m', 'back_stroke_50m', 'butterfly_50m']
+                extra_text = ', other than relay'
             elif category == 'facultyandstaff':
                 form = Sports_Aquatics_Staff_form(request.POST, request.FILES)
             else:
@@ -73,15 +76,27 @@ class Sports_Register_view(View):
             if category == 'staff' or count <= 3:
                 print('form is valid')
                 form.save()
-                return HttpResponse('Registration completed successfully')
+                return render(request, 'registration-response.html', {
+                    'message': 'Registration completed successfully. You are ready to rock at IIT Madras.',
+                    'status': 'success',
+                })
             else:
                 print('Valid form. More than 3 entries chosen')
-                return HttpResponse('You can only register for a maximum of three events')
+                return render(request, 'registration-response.html', {
+                    'message': 'You can only register for a maximum of three events'+extra_text+'.',
+                    'status': 'failed',
+                })
         else:
             print('invalid form')
             if count <= 3:
-                return HttpResponse('Your registration is not valid. Please enter details correctly')
-            return HttpResponse('You can only register for a maximum of three events')
+                return render(request, 'registration-response.html', {
+                    'message': 'Your registration is not valid. Please enter details correctly',
+                    'status': 'failed',
+                })
+            return render(request, 'registration-response.html', {
+                'message': 'You can only register for a maximum of three events'+extra_text+'.',
+                'status': 'failed',
+            })
 
 class Register_Page(View):
     def get(self, request, *args, **kwargs):
