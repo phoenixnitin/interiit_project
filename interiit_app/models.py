@@ -59,6 +59,12 @@ class CommomChoices:
         ('AB-', 'AB-'),
         ('AB+', 'AB+'),
     )
+
+    transportChoices = (
+        ('Flight', 'Flight'),
+        ('Train', 'Train'),
+    )
+
 class Sport_Aquatics_Men(models.Model):
     def path_and_rename(instance, filename):
         upload_to = 'AquaticsMeet/Men'
@@ -77,10 +83,12 @@ class Sport_Aquatics_Men(models.Model):
     mobile_no = PhoneNumberField()
     email = models.EmailField()
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
-    arrival = models.CharField(max_length=20, blank=True, null=True,)
-    arrival_time = models.CharField(max_length=20, blank=True, null=True,)
-    departure = models.CharField(max_length=20, blank=True, null=True,)
-    departure_time = models.CharField(max_length=20, blank=True, null=True,)
+    mode_of_transportation = models.CharField(max_length=10, choices=CommomChoices.transportChoices, blank=True, null=True)
+    transport_name = models.CharField(max_length=50, blank=True, null=True)
+    arrival_date = models.CharField(max_length=20, blank=True, null=True)
+    arrival_time = models.CharField(max_length=20, blank=True, null=True)
+    departure_date = models.CharField(max_length=20, blank=True, null=True)
+    departure_time = models.CharField(max_length=20, blank=True, null=True)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
     water_polo = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
@@ -133,10 +141,12 @@ class Sport_Aquatics_Women(models.Model):
     mobile_no = PhoneNumberField()
     email = models.EmailField()
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
-    arrival = models.CharField(max_length=20, blank=True, null=True,)
-    arrival_time = models.CharField(max_length=20, blank=True, null=True,)
-    departure = models.CharField(max_length=20, blank=True, null=True,)
-    departure_time = models.CharField(max_length=20, blank=True, null=True,)
+    mode_of_transportation = models.CharField(max_length=10, choices=CommomChoices.transportChoices, blank=True, null=True)
+    transport_name = models.CharField(max_length=50, blank=True, null=True)
+    arrival_date = models.CharField(max_length=20, blank=True, null=True)
+    arrival_time = models.CharField(max_length=20, blank=True, null=True)
+    departure_date = models.CharField(max_length=20, blank=True, null=True)
+    departure_time = models.CharField(max_length=20, blank=True, null=True)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
     freestyle_50m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
@@ -165,10 +175,12 @@ class Sport_Aquatics_Staff(models.Model):
     mobile_no = PhoneNumberField()
     email = models.EmailField()
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
-    arrival = models.CharField(max_length=20, blank=True, null=True,)
-    arrival_time = models.CharField(max_length=20, blank=True, null=True,)
-    departure = models.CharField(max_length=20, blank=True, null=True,)
-    departure_time = models.CharField(max_length=20, blank=True, null=True,)
+    mode_of_transportation = models.CharField(max_length=10, choices=CommomChoices.transportChoices, blank=True, null=True)
+    transport_name = models.CharField(max_length=50, blank=True, null=True)
+    arrival_date = models.CharField(max_length=20, blank=True, null=True)
+    arrival_time = models.CharField(max_length=20, blank=True, null=True)
+    departure_date = models.CharField(max_length=20, blank=True, null=True)
+    departure_time = models.CharField(max_length=20, blank=True, null=True)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
     designation = models.CharField(max_length=30)
