@@ -5,7 +5,8 @@ body {
   font-family: 'Muli', "Helvetica", Arial, sans-serif;
 }
 #register-page {
-  margin: 15px;
+  margin: 15px 0px;
+  padding: 0px 15px;
 }
 #register-page .container {
   margin: 15px auto;
