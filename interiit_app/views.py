@@ -27,7 +27,7 @@ class Sports_Register_view(View):
                 print('case women')
             elif category == 'facultyandstaff':
                 form = Sports_Aquatics_Staff_form
-                heading = 'Aquatics Meet Form : Staff'
+                heading = 'Aquatics Meet Form : Faculty and Staff'
                 print('case staff')
             else:
                 print('Category doesn\'t exist')

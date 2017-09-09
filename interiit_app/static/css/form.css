@@ -16,7 +16,7 @@ body {
 .registration-form .container {
   margin: 15px auto;
   background: #fdfdfd;
-  max-width: 480px;
+  max-width: 500px;
   border: 2px rgba(0, 0, 0, 0.5);
   border-style: solid;
   border-radius: 10px;
