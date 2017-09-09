@@ -9,7 +9,8 @@ body {
   margin-bottom: 10px;
 }
 .registration-form {
-  margin: 15px;
+  margin: 15px 0px;
+  padding: 0px 15px;
   min-width: 350px;
 }
 .registration-form .container {
