@@ -36,6 +36,7 @@ class CommomChoices:
     binaryChoices = (
         ('YES', 'Yes'),
         ('NO', 'No'),
+        ('RESERVE', 'Reserve'),
     )
 
     foodChoices = (
