@@ -11,6 +11,27 @@ import time
 
 # Create your views here.
 
+def send_email(user, pwd, recipient, subject, body):
+    import smtplib
+    gmail_user = user
+    gmail_pwd = pwd
+    FROM = user
+    TO = recipient if type(recipient) is list else [recipient]
+    SUBJECT = subject
+    TEXT = body
+
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(gmail_user, gmail_pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        print('successfully sent the mail')
+    except:
+        print("failed to send mail")
+
 class Sports_Register_view(View):
     @xframe_options_exempt
     def get(self, request, sport_name, category, *args, **kwargs):
@@ -74,8 +95,17 @@ class Sports_Register_view(View):
         print(count)
         if form.is_valid():
             if category == 'staff' or count <= 3:
+                if(category == "staff"):
+                    recepient_name = dictionary["staff_name"]
+                else:
+                    recepient_name = dictionary["student_name"]       
                 print('form is valid')
                 form.save()
+                recepient_email = dictionary["email"]
+                message = '''
+Dear {}, 
+    You have successfully registered for InterIIT Sports Meet 2017.'''.format(recepient_name)
+                send_email("<sender email>","<secret code>",recepient_email,"[No-Reply]",message)
                 return render(request, 'registration-response.html', {
                     'message': 'Registration completed successfully. You are ready to rock at IIT Madras.',
                     'status': 'success',
@@ -97,6 +127,7 @@ class Sports_Register_view(View):
                 'message': 'You can only register for a maximum of three events'+extra_text+'.',
                 'status': 'failed',
             })
+
 
 class Register_Page(View):
     def get(self, request, *args, **kwargs):
