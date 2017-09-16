@@ -147,14 +147,17 @@ class json_aquatics_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
     serializer_class = Sport_Aquatics_Staff_serializer
     queryset = Sport_Aquatics_Staff.objects.all()
 
-def sendmailtoalreadyregistered_men():
+def sendmailtoalreadyregistered_men(id=None):
     listmen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
                'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',
                'water_polo', 'free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m', 'back_100m',
                'back_200m', 'breast_50m', 'breast_100m', 'breast_200m', 'b_fly_50m', 'b_fly_100m', 'i_m_200m',
                'free_relay_4x100m', 'medley_relay_4x100m',)
     n=len(listmen)
-    queryset = Sport_Aquatics_Men.objects.values()
+    if id is notd None:
+        queryset = Sport_Aquatics_Men.objects.values().filter(id=id)
+    else:
+        queryset = Sport_Aquatics_Men.objects.values()
 
     for object in queryset:
         #print(object, "\n\n\n")
@@ -180,13 +183,16 @@ In case of any error reply to this mail. Your image is stored in our database.
         print(message)
         send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
 
-def sendmailtoalreadyregistered_women():
+def sendmailtoalreadyregistered_women(id=None):
     listwomen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
                  'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',
                  'freestyle_50m', 'freestyle_100m', 'breast_stroke_50m', 'back_stroke_50m', 'butterfly_50m',
                  'freestyle_relay_4x50m',)
     n=len(listwomen)
-    queryset = Sport_Aquatics_Women.objects.values()
+    if id is not None:
+        queryset = Sport_Aquatics_Women.objects.values().filter(id=id)
+    else:
+        queryset = Sport_Aquatics_Women.objects.values()
 
     for object in queryset:
         details = ""
@@ -210,12 +216,15 @@ In case of any error reply to this mail. Your image is stored in our database.
         print(message)
         send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
 
-def sendmailtoalreadyregistered_facultyandstaff():
+def sendmailtoalreadyregistered_facultyandstaff(id=None):
     listfacultyandstaff = ('iit_name', 'staff_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
               'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',
               'designation',)
     n=len(listfacultyandstaff)
-    queryset = Sport_Aquatics_Staff.objects.values()
+    if id is not None:
+        queryset = Sport_Aquatics_Staff.objects.values().filter(id=id)
+    else:
+        queryset = Sport_Aquatics_Staff.objects.values()
 
     for object in queryset:
         details = ""
