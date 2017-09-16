@@ -154,7 +154,7 @@ def sendmailtoalreadyregistered_men(id=None):
                'back_200m', 'breast_50m', 'breast_100m', 'breast_200m', 'b_fly_50m', 'b_fly_100m', 'i_m_200m',
                'free_relay_4x100m', 'medley_relay_4x100m',)
     n=len(listmen)
-    if id is notd None:
+    if id is not None:
         queryset = Sport_Aquatics_Men.objects.values().filter(id=id)
     else:
         queryset = Sport_Aquatics_Men.objects.values()
