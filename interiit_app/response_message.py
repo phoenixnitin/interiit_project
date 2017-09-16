@@ -42,6 +42,6 @@ def response(dict, category):
 Details:
 {}
 
-In case of any error reply to this mail.
+In case of any error reply to this mail. Your image is stored in our database.
 '''.format(recepient_name,details)
     return message

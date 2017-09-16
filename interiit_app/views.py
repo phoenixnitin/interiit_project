@@ -146,3 +146,95 @@ class json_aquatics_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
 class json_aquatics_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Staff_serializer
     queryset = Sport_Aquatics_Staff.objects.all()
+
+def sendmailtoalreadyregistered_men():
+    listmen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
+               'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',
+               'water_polo', 'free_50m', 'free_100m', 'free_200m', 'free_400m', 'free_1500m', 'back_50m', 'back_100m',
+               'back_200m', 'breast_50m', 'breast_100m', 'breast_200m', 'b_fly_50m', 'b_fly_100m', 'i_m_200m',
+               'free_relay_4x100m', 'medley_relay_4x100m',)
+    n=len(listmen)
+    queryset = Sport_Aquatics_Men.objects.values()
+
+    for object in queryset:
+        #print(object, "\n\n\n")
+        details = ""
+        for i in range(0,n):
+            if listmen[i] == 'student_name':
+                details += "name : " + str(object[listmen[i]]) + "\n"
+            else:
+                details += listmen[i]+" : "+str(object[listmen[i]])+"\n"
+        #print(details, "\n")
+        recepient_name = object['student_name']
+        message = '''Dear {}, 
+    You have successfully registered for InterIIT Sports Meet 2017.
+
+Details:
+{}
+
+In case of any error reply to this mail. Your image is stored in our database.
+'''.format(recepient_name, details)
+        recepient_email = object['email']
+        subject = "Registered Successfully for InterIIT Sports Meet 2017"
+        data = Data()
+        print(message)
+        send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+
+def sendmailtoalreadyregistered_women():
+    listwomen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
+                 'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',
+                 'freestyle_50m', 'freestyle_100m', 'breast_stroke_50m', 'back_stroke_50m', 'butterfly_50m',
+                 'freestyle_relay_4x50m',)
+    n=len(listwomen)
+    queryset = Sport_Aquatics_Women.objects.values()
+
+    for object in queryset:
+        details = ""
+        for i in range(0,n):
+            if listwomen[i] == 'student_name':
+                details += "name : " + str(object[listwomen[i]]) + "\n"
+            else:
+                details += listwomen[i]+" : "+str(object[listwomen[i]])+"\n"
+        recepient_name = object['student_name']
+        message = '''Dear {}, 
+    You have successfully registered for InterIIT Sports Meet 2017.
+
+Details:
+{}
+
+In case of any error reply to this mail. Your image is stored in our database.
+'''.format(recepient_name, details)
+        recepient_email = object['email']
+        subject = "Registered Successfully for InterIIT Sports Meet 2017"
+        data = Data()
+        print(message)
+        send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+
+def sendmailtoalreadyregistered_facultyandstaff():
+    listfacultyandstaff = ('iit_name', 'staff_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
+              'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',
+              'designation',)
+    n=len(listfacultyandstaff)
+    queryset = Sport_Aquatics_Staff.objects.values()
+
+    for object in queryset:
+        details = ""
+        for i in range(0,n):
+            if listfacultyandstaff[i] == 'staff_name':
+                details += "name : " + str(object[listfacultyandstaff[i]]) + "\n"
+            else:
+                details += listfacultyandstaff[i]+" : "+str(object[listfacultyandstaff[i]])+"\n"
+        recepient_name = object['staff_name']
+        message = '''Dear {}, 
+    You have successfully registered for InterIIT Sports Meet 2017.
+
+Details:
+{}
+
+In case of any error reply to this mail. Your image is stored in our database.
+'''.format(recepient_name, details)
+        recepient_email = object['email']
+        subject = "Registered Successfully for InterIIT Sports Meet 2017"
+        data = Data()
+        print(message)
+        send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
