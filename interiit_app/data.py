@@ -1,8 +1,7 @@
-class  Data:
-	
+class Data:
 	def getid(self):
-		return "usermail_id"
+		return "email"
 	def getpwd(self):
-		return "userpwd"
-	def getrecvid(self):
-		return "recvmailid"
+		return "secret"
+    #def getrecvid(self):
+    #    return "receiver email id"

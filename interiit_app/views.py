@@ -9,6 +9,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 import json
 import time
 from .data import Data
+from .response_message import response
 
 # Create your views here.
 
@@ -97,31 +98,16 @@ class Sports_Register_view(View):
         details = ""
         if form.is_valid():
             if category == 'staff' or count <= 3:
-                if(category == "staff"): 
-                    recepient_name = dictionary["staff_name"]
-                    details = details + "Name : " + dictionary['staff_name'] + '\n'
-                else:
-                    recepient_name = dictionary["student_name"]
-                    details = details + "Name : " + dictionary["student_name"] + '\n'       
                 print('form is valid')
+                form.full_clean()
                 form.save()
-                recepient_email = dictionary["email"]
-
-                details = details + dictionary["iit_name"] + '\n'
-                for key,value in dictionary.items():
-                	if(key != "student_name" and key != "staff_name" and key != 'csrfmiddlewaretoken' and key != "iit_name"):
-                		#print(value)
-                		details += key + " : " + value + '\n'
-		
+                recepient_email = dictionary['email']
+                subject = "Registered Successfully for InterIIT Sports Meet 2017"
+                message = response(dict=dictionary, category=category)
+                print(message)
                 data = Data()
-                message = '''
-Dear {}, 
-    You have successfully registered for InterIIT Sports Meet 2017.
-
-Details:
-{}'''.format(recepient_name,details)
-                send_email(data.getid(),data.getpwd(),recepient_email,"[No-Reply]",message)
-                send_email(data.getid(),data.getpwd(),data.getrecvid(),"[No-Reply]",message)
+                send_email(data.getid(),data.getpwd(),recepient_email,subject,message)
+                #send_email(data.getid(),data.getpwd(),data.getrecvid(),subject,message)
                 return render(request, 'registration-response.html', {
                     'message': 'Registration completed successfully. You are ready to rock at IIT Madras.',
                     'status': 'success',
