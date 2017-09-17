@@ -183,7 +183,7 @@ In case of any error reply to this mail. Your image is stored in our database.
         subject = "Registered Successfully for InterIIT Sports Meet 2017"
         data = Data()
         print(message)
-        #send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+        send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
 
 def sendmailtoalreadyregistered_women(id=None):
     listwomen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
