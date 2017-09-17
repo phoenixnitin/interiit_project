@@ -165,6 +165,8 @@ def sendmailtoalreadyregistered_men(id=None):
         for i in range(0,n):
             if listmen[i] == 'student_name':
                 details += "name : " + str(object[listmen[i]]) + "\n"
+            elif listmen[i] == 'iit_name':
+                details += str(object[listmen[i]]) + "\n"
             else:
                 details += listmen[i]+" : "+str(object[listmen[i]])+"\n"
         #print(details, "\n")
@@ -181,7 +183,7 @@ In case of any error reply to this mail. Your image is stored in our database.
         subject = "Registered Successfully for InterIIT Sports Meet 2017"
         data = Data()
         print(message)
-        send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+        #send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
 
 def sendmailtoalreadyregistered_women(id=None):
     listwomen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
@@ -199,6 +201,8 @@ def sendmailtoalreadyregistered_women(id=None):
         for i in range(0,n):
             if listwomen[i] == 'student_name':
                 details += "name : " + str(object[listwomen[i]]) + "\n"
+            elif listwomen[i] == 'iit_name':
+                details += str(object[listwomen[i]]) + "\n"
             else:
                 details += listwomen[i]+" : "+str(object[listwomen[i]])+"\n"
         recepient_name = object['student_name']
@@ -231,6 +235,8 @@ def sendmailtoalreadyregistered_facultyandstaff(id=None):
         for i in range(0,n):
             if listfacultyandstaff[i] == 'staff_name':
                 details += "name : " + str(object[listfacultyandstaff[i]]) + "\n"
+            elif listfacultyandstaff[i] == 'iit_name':
+                details += str(object[listfacultyandstaff[i]]) + "\n"
             else:
                 details += listfacultyandstaff[i]+" : "+str(object[listfacultyandstaff[i]])+"\n"
         recepient_name = object['staff_name']
