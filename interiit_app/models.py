@@ -185,3 +185,102 @@ class Sport_Aquatics_Staff(models.Model):
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
     food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
     designation = models.CharField(max_length=30)
+
+class Sport_Athletics_Men(models.Model):
+	
+	def path_and_rename(instance, filename):
+        upload_to = 'MainMeet/Athletics/Men'
+        ext = filename.split('.')[-1]
+        namearray = instance.student_name.split(' ')
+        namelen = len(namearray)
+        name = ''
+        for i in range(0, namelen):
+            name = name + namearray[i].capitalize()
+        filename = '{}_Participant_{}.{}'.format(name, instance.iit_name, ext)
+        return os.path.join(upload_to, filename)
+
+	iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
+    student_name = models.CharField(max_length=50)
+    blood_group = models.CharField(max_length=5, choices=CommomChoices.bloodGroupChoices)
+    mobile_no = PhoneNumberField()
+    email = models.EmailField()
+    photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
+	food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
+	_100m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_200m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_400m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_800m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_1500m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_5000m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	hurdles_110m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	hurdles_400m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	high_jump = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	long_jump = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	triple_jump = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	pole_vault = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	shot_put = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	discuss_throw = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	javelin_throw = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	hammer_throw = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	relay_4x100m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	relay_4x400m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+
+class Sport_Athletics_Women(models.Model):
+	
+	def path_and_rename(instance, filename):
+        upload_to = 'MainMeet/Athletics/Women'
+        ext = filename.split('.')[-1]
+        namearray = instance.student_name.split(' ')
+        namelen = len(namearray)
+        name = ''
+        for i in range(0, namelen):
+            name = name + namearray[i].capitalize()
+        filename = '{}_Participant_{}.{}'.format(name, instance.iit_name, ext)
+        return os.path.join(upload_to, filename)
+
+	iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
+    student_name = models.CharField(max_length=50)
+    blood_group = models.CharField(max_length=5, choices=CommomChoices.bloodGroupChoices)
+    mobile_no = PhoneNumberField()
+    email = models.EmailField()
+    photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
+	food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
+	_100m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_200m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_400m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_800m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	_1500m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	high_jump = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	long_jump = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	shot_put = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	discuss_throw = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	relay_4x100m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+	relay_4x400m = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+
+class Staff(models.Model):
+	def path_and_rename(instance, filename):
+        upload_to = 'MainMeet/Staff'
+        ext = filename.split('.')[-1]
+        namearray = instance.staff_name.split(' ')
+        namelen = len(namearray)
+        name = ''
+        for i in range(0, namelen):
+            name = name + namearray[i].capitalize()
+        filename = '{}_Staff_{}.{}'.format(name, instance.iit_name, ext)
+        return os.path.join(upload_to, filename)
+
+    iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
+    staff_name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=8, default='MALE', choices=CommomChoices.genderChoices)
+    blood_group = models.CharField(max_length=5, choices=CommomChoices.bloodGroupChoices)
+    mobile_no = PhoneNumberField()
+    email = models.EmailField()
+    photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
+    designation = models.CharField(max_length=30)
+	food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
+
+
+
+
+
+	
