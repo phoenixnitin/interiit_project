@@ -279,32 +279,30 @@ class Staff(models.Model):
     designation = models.CharField(max_length=30)
 	food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
 	
-	
-	class Sport_Weightlifting(models.Model):
-	
+class Sport_Weightlifting(models.Model):
 	def path_and_rename(instance, filename):
-        upload_to = 'MainMeet/Weightlifting'
-        ext = filename.split('.')[-1]
-        namearray = instance.student_name.split(' ')
-        namelen = len(namearray)
-        name = ''
-        for i in range(0, namelen):
-            name = name + namearray[i].capitalize()
-        filename = '{}_Participant_{}.{}'.format(name, instance.iit_name, ext)
-        return os.path.join(upload_to, filename)
-
-	iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
+	    upload_to = 'MainMeet/Weightlifting'
+	    ext = filename.split('.')[-1]
+	    namearray = instance.student_name.split(' ')
+	    namelen = len(namearray)
+	    name = ''
+	    for i in range(0, namelen):
+                name = name + namearray[i].capitalize()
+            filename = '{}_Participant_{}.{}'.format(name, instance.iit_name, ext)
+            return os.path.join(upload_to, filename)
+	
+    iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
     student_name = models.CharField(max_length=50)
     blood_group = models.CharField(max_length=5, choices=CommomChoices.bloodGroupChoices)
     mobile_no = PhoneNumberField()
     email = models.EmailField()
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
-	food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
-	upto_56kg = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
-	upto_62kg = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
-	upto_69kg = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
-	upto_77kg= models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
-	above_77kg= models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+    food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
+    upto_56kg = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+    upto_62kg = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+    upto_69kg = models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+    upto_77kg= models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
+    above_77kg= models.CharField(max_length=10, default='NO', choices=CommomChoices.binaryChoices)
 
 
 
