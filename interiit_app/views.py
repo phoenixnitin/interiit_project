@@ -1,10 +1,10 @@
 
 from django.shortcuts import render, HttpResponse
 from django.views import View
-from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form
+from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form,Sports_Weightlifting_form
 from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer
 from rest_framework import mixins, viewsets
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff,Sport_Weightlifting
 from django.http import HttpResponseRedirect
 from django.views.decorators.clickjacking import xframe_options_exempt
 import json

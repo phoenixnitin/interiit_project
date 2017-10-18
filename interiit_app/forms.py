@@ -129,3 +129,33 @@ class Sports_Aquatics_Staff_form(ModelForm):
             'arrival_time': _('Please enter in format HH:MM AM/PM'),
             'departure_time': _('Please enter in format HH:MM AM/PM'),
         }
+        
+class Sports_Weightlifting_form(ModelForm):
+    helper = FormHelper()
+    helper.form_tag = False
+
+    class Meta:
+        model = Sport_Weightlifting
+        fields = '__all__'
+        labels = {
+            "iit_name": _('IIT'),
+            "student_name": _('Name'),
+            "blood_group": _('Blood Group'),
+            "mobile_no": _('Contact No.'),
+            "email": _('E-mail'),
+            "photo": _('Photo'),
+            "food": _('Food'),
+            "upto_56kg": _('Upto 56kg'),
+            "upto_62kg": _('Upto 62kg'),
+            "upto_69kg": _('Upto 69kg'),
+            "upto_77kg": _('Upto 77kg'),
+            "above_77kg": _('Above 77kg'),
+        }
+        widgets = {
+            'mobile_no': PhoneNumberInternationalFallbackWidget,
+        }
+        help_texts = {
+            'mobile_no': _('Please enter your country code, if not from India'),
+            'photo': _('Please upload passport size photo'),
+        }
+
