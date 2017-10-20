@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff,Weightlifting
 
 # Register your models here.
 class AdminModel_Sport_Aquatics_Men(admin.ModelAdmin):
@@ -36,3 +36,11 @@ admin.site.register(Sport_Aquatics_Men, AdminModel_Sport_Aquatics_Men)
 admin.site.register(Sport_Aquatics_Women, AdminModel_Sport_Aquatics_Women)
 admin.site.register(Sport_Aquatics_Staff, AdminModel_Sport_Aquatics_FacultyandStaff)
 
+class Weightlifting(admin.ModelAdmin):
+    mylist = ('id', 'iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'photo', 'food','upto_56kg','upto_62kg','upto_69kg',
+              'upto_77kg','above_77kg',)
+    list_display = mylist
+    list_display_links = mylist
+    list_filter = mylist
+    search_fields = mylist
+admin.site.register(Sport_Weightlifting,AdminModel_Sport_Weilghtlifting)

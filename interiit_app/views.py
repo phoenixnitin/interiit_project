@@ -2,7 +2,7 @@
 from django.shortcuts import render, HttpResponse
 from django.views import View
 from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form,Sports_Weightlifting_form
-from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer
+from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer,Sport_Weightlifting_serializer
 from rest_framework import mixins, viewsets
 from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff,Sport_Weightlifting
 from django.http import HttpResponseRedirect
@@ -83,6 +83,9 @@ class Sports_Register_view(View):
                 form = Sports_Aquatics_Staff_form(request.POST, request.FILES)
             else:
                 print('Category doesn\'t exist')
+        elif sport_name=='weightlifting':
+            form = Sports_Weightlifting_form(request.POST, request.FILES)
+            list = ['upto_56kg','upto_62kg','upto_69kg','upto_77kg','above_77kg']
         else:
             print('Sport doesn\'t exist')
 
@@ -147,7 +150,12 @@ class json_aquatics_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
 class json_aquatics_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Staff_serializer
     queryset = Sport_Aquatics_Staff.objects.all()
-
+    
+class json_weightlifting(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = Sport_Weightlifting_serializer
+    queryset = Sport_Weightlifting.objects.all()
+    
+    
 def sendmailtoalreadyregistered_men(id=None):
     listmen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
                'transport_name', 'arrival_date', 'arrival_time', 'departure_date', 'departure_time', 'food',

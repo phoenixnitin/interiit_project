@@ -13,5 +13,5 @@ router = routers.SimpleRouter()
 router.register(r'sport/download/aquatics/men', views.json_aquatics_men, 'json_aquatics_men')
 router.register(r'sport/download/aquatics/women', views.json_aquatics_women, 'json_aquatics_women')
 router.register(r'sport/download/aquatics/facultyandstaff', views.json_aquatics_staff, 'json_aquatics_staff')
-
+router.register(r'sport/download/weightlifting', views.json_weightlifting, 'json_weightlifting')
 urlpatterns += router.urls
