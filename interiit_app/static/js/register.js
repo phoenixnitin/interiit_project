@@ -30,14 +30,30 @@ function sport() {
 }
 
 function category() {
-    if($('#sel2').val() === 'participant')
+    if($('#sel2').val() === 'participant'){
         $('#gender-selector').removeClass('hide');
-    else
+        gender();
+        $('#sport-selector').removeClass('hide');
+    }
+    else if ($('#sel2').val() === 'facultyandstaff'){
         $('#gender-selector').addClass('hide');
+        $('#sport-selector').removeClass('hide');
+        $('.male').removeClass('hide');
+        $('#sel1').val('---');
+    }
+    else {
+      $('#sport-selector').addClass('hide');
+      $('#sel1').val('---');
+    }
     return $('#sel2').val();
 }
 
 function gender() {
+    if($('#sel3').val() === 'men')
+      $('.male').removeClass('hide');
+    else
+      $('.male').addClass('hide');
+    $('#sel1').val('---');
     return $('#sel3').val();
 }
 
@@ -48,22 +64,24 @@ function getRegistrationForm(){
     var url;
     if (category === 'facultyandstaff')
     {
-        switch(sport){
-            case 'aquatics': url = host+'/sport/'+sport+'/facultyandstaff';break;
-            default: url="";
+        if(sport==='athletics' || sport==='badminton' || sport==='basketball' || sport==='cricket' || sport==='football' || sport==='hockey' || sport==='squash' || sport==='table_tennis' || sport==='tennis' || sport==='volleyball' || sport==='weightlifting'){
+          url = host+'/sport/'+sport+'/facultyandstaff';
         }
+        else
+          url="";
     }
     else if (category === 'participant'){
         var gender = $('#sel3').val();
-        switch(sport){
-            case 'aquatics': url = host+'/sport/'+sport+'/'+gender;break;
-            default: url = "";
+        if(sport==='athletics' || sport==='badminton' || sport==='basketball' || sport==='cricket' || sport==='football' || sport==='hockey' || sport==='squash' || sport==='table_tennis' || sport==='tennis' || sport==='volleyball' || sport==='weightlifting') {
+          url = host + '/sport/' + sport + '/' + gender;
         }
+        else
+          url = "";
     }
     else {
         url = "";
     }
-
+    // console.log(url);
     if(url !== ""){
         window.open(url, '_blank');
     }

@@ -28,7 +28,7 @@ body {
 .registration-form .container form #div_id_mobile_no div select {
   margin-bottom: 10px;
 }
-.registration-form .container h3 {
+.registration-form .container h3, .registration-form .container h4 {
   margin: 15px;
   text-align: center;
   padding-bottom: 5px;
@@ -39,4 +39,7 @@ body {
 }
 .btn-primary:hover .btn-primary:active .btn-primary:focus {
   background-color: rgba(28, 63, 80, 0.6);
+}
+.red{
+  color: red;
 }

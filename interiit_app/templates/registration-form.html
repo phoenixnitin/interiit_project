@@ -16,6 +16,7 @@
     <div class="registration-form">
         <div class="container">
             <h3>{{ heading }}</h3>
+          <h4>You are registering for <span class="red">{{ sport }}</span></h4>
             <form method="POST" enctype='multipart/form-data'>
                 {% crispy form %}
                 <div class="submit-button col-xs-12"><button type="submit" class="save btn btn-default">Submit</button></div>

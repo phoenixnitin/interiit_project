@@ -1,11 +1,12 @@
 
 from django.shortcuts import render, HttpResponse
 from django.views import View
-from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form,Sports_Weightlifting_form
-from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer,Sport_Weightlifting_serializer
+from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form, Sports_Weightlifting_form, Staff_form, Sports_Athletics_Men_form, Sports_Athletics_Women_form, Sport_All_Common_Games_Men_form, Sport_All_Common_Games_Women_form
+from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer,Sport_Weightlifting_serializer, Staff_serializer, Sport_Athletics_Men_serializer, Sport_Athletics_Women_serializer, Sport_All_Common_Games_Men_serializer, Sport_All_Common_Games_Women_serializer
 from rest_framework import mixins, viewsets
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff,Sport_Weightlifting
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Weightlifting, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.views.decorators.clickjacking import xframe_options_exempt
 import json
 import time
@@ -55,13 +56,59 @@ class Sports_Register_view(View):
                 print('case staff')
             else:
                 print('Category doesn\'t exist')
+        elif sport_name == 'athletics':
+            if category == 'men':
+                form = Sports_Athletics_Men_form
+                heading = '52nd InterIIT Registration : Men'
+            elif category == 'women':
+                form = Sports_Athletics_Women_form
+                heading = '52nd InterIIT Registration : Women'
+            elif category == 'facultyandstaff':
+                form = Staff_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Faculty and Staff'
+            else:
+                print('Category doesn\'t exist')
+        elif sport_name == 'weightlifting':
+            if category == 'men':
+                form = Sports_Weightlifting_form
+                heading = '52nd InterIIT Registration : Men'
+            elif category == 'facultyandstaff':
+                form = Staff_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Faculty and Staff'
+            else:
+                print('Category doesn\'t exist')
+        elif sport_name == 'badminton' or sport_name == 'basketball' or sport_name == 'tennis' or sport_name == 'volleyball' or sport_name == 'table_tennis':
+            if category == 'men':
+                form = Sport_All_Common_Games_Men_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Men'
+            elif category == 'women':
+                form = Sport_All_Common_Games_Women_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Women'
+            elif category == 'facultyandstaff':
+                form = Staff_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Faculty and Staff'
+            else:
+                print('Category doesn\'t exist')
+        elif sport_name == 'cricket' or sport_name == 'football' or sport_name == 'hockey' or sport_name == 'squash':
+            if category == 'men':
+                form = Sport_All_Common_Games_Men_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Men'
+            elif category == 'facultyandstaff':
+                form = Staff_form(initial={'sport_name': sport_name.title()})
+                heading = '52nd InterIIT Registration : Faculty and Staff'
+            else:
+                print('Category doesn\'t exist')
         else:
             print('Sport doesn\'t exist')
         #print(sport_name, category)
+        if sport_name.find("_") > 0:
+            passed_sport_name = sport_name.replace("_", " ")
+        else:
+            passed_sport_name = sport_name
         if form is None:
             return HttpResponse('Registration form doesn\'t exist')
         else:
-            return render(request, 'registration-form.html', {'form': form, 'heading': heading})
+            return render(request, 'registration-form.html', {'form': form, 'heading': heading, 'sport': passed_sport_name.title()})
 
     @xframe_options_exempt
     def post(self, request, sport_name, category, *args, **kwargs):
@@ -83,9 +130,59 @@ class Sports_Register_view(View):
                 form = Sports_Aquatics_Staff_form(request.POST, request.FILES)
             else:
                 print('Category doesn\'t exist')
-        elif sport_name=='weightlifting':
-            form = Sports_Weightlifting_form(request.POST, request.FILES)
-            list = ['upto_56kg','upto_62kg','upto_69kg','upto_77kg','above_77kg']
+
+        elif sport_name == 'athletics':
+            if category == 'men':
+                form = Sports_Athletics_Men_form(request.POST, request.FILES)
+                list = ['_100m', '_200m', '_400m', '_800m', '_1500m', '_5000m', 'hurdles_110m', 'hurdles_400m',
+                        'high_jump', 'long_jump', 'triple_jump', 'pole_vault', 'shot_put', 'discuss_throw',
+                        'javelin_throw', 'hammer_throw']
+                extra_text = ', other than relays'
+            elif category == 'women':
+                form = Sports_Athletics_Women_form(request.POST, request.FILES)
+                list = ['_100m', '_200m', '_400m', '_800m', '_1500m', 'high_jump', 'long_jump', 'shot_put', 'discuss_throw']
+                extra_text = ', other than relays'
+            elif category == 'facultyandstaff':
+                request.POST._mutable = True
+                request.POST['sport_name'] = sport_name.title()
+                form = Staff_form(request.POST, request.FILES)
+            else:
+                print('Category doesn\'t exist')
+
+        elif sport_name == 'weightlifting':
+            if category == 'men':
+                form = Sports_Weightlifting_form(request.POST, request.FILES)
+                list = ['upto_56kg', 'upto_62kg', 'upto_69kg', 'upto_77kg', 'above_77kg']
+            elif category == 'facultyandstaff':
+                request.POST._mutable = True
+                request.POST['sport_name'] = sport_name.title()
+                form = Staff_form(request.POST, request.FILES)
+
+        elif sport_name == 'badminton' or sport_name == 'basketball' or sport_name == 'tennis' or sport_name == 'volleyball' or sport_name == 'table_tennis':
+            request.POST._mutable = True
+            if sport_name.find("_") > 0:
+                sport_name = sport_name.replace("_", " ")
+
+            request.POST['sport_name'] = sport_name.title()
+            if category == 'men':
+                form = Sport_All_Common_Games_Men_form(request.POST, request.FILES)
+            elif category == 'women':
+                form = Sport_All_Common_Games_Women_form(request.POST, request.FILES)
+            elif category == 'facultyandstaff':
+                form = Staff_form(request.POST, request.FILES)
+            else:
+                print('Category doesn\'t exist')
+
+        elif sport_name == 'cricket' or sport_name == 'football' or sport_name == 'hockey' or sport_name == 'squash':
+            request.POST._mutable = True
+            request.POST['sport_name'] = sport_name.title()
+            if category == 'men':
+                form = Sport_All_Common_Games_Men_form(request.POST, request.FILES)
+            elif category == 'facultyandstaff':
+                form = Staff_form(request.POST, request.FILES)
+            else:
+                print('Category doesn\'t exist')
+
         else:
             print('Sport doesn\'t exist')
 
@@ -94,20 +191,23 @@ class Sports_Register_view(View):
         print('*args', args)
         dictionary = request.POST.dict()
         count = 0
+        if sport_name == 'weightlifting':
+            count = count + 1
         # print('**kwargs', **kwargs)
         for item in list:
-            if dictionary[item] == "YES":
+            if dictionary[item] == "YES" or dictionary[item] == "RESERVE":
                 count = count + 1
         print(count)
         details = ""
         if form.is_valid():
-            if category == 'staff' or count <= 3:
+            if category == 'facultyandstaff' or count <= 3:
                 print('form is valid')
                 form.full_clean()
                 form.save()
+
                 recepient_email = dictionary['email']
                 subject = "Registered Successfully for InterIIT Sports Meet 2017"
-                message = response(dict=dictionary, category=category)
+                message = response(dict=dictionary, category=category, sport_name=sport_name.title())
                 print(message)
                 data = Data()
                 send_email(data.getid(),data.getpwd(),recepient_email,subject,message)
@@ -118,8 +218,12 @@ class Sports_Register_view(View):
                 })
             else:
                 print('Valid form. More than 3 entries chosen')
+                if sport_name == 'weightlifting':
+                    msg = 'You can only register for a maximum of two events'+extra_text+'.'
+                else:
+                    msg = 'You can only register for a maximum of three events' + extra_text + '.'
                 return render(request, 'registration-response.html', {
-                    'message': 'You can only register for a maximum of three events'+extra_text+'.',
+                    'message': msg,
                     'status': 'failed',
                 })
         else:
@@ -134,10 +238,12 @@ class Sports_Register_view(View):
                 'status': 'failed',
             })
 
-
 class Register_Page(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'register.html')
+
+def Redirect_To_Register_Page(request):
+    return redirect('/sport/register/')
 
 class json_aquatics_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Men_serializer
@@ -154,7 +260,26 @@ class json_aquatics_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, view
 class json_weightlifting(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Weightlifting_serializer
     queryset = Sport_Weightlifting.objects.all()
-    
+
+class json_athletics_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = Sport_Athletics_Men_serializer
+    queryset = Sport_Athletics_Men.objects.all()
+
+class json_athletics_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = Sport_Athletics_Women_serializer
+    queryset = Sport_Athletics_Women.objects.all()
+
+class json_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = Staff_serializer
+    queryset = Staff.objects.all()
+
+class json_sport_all_other_games_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = Sport_All_Common_Games_Men_serializer
+    queryset = Sport_All_Common_Games_Men.objects.all()
+
+class json_sport_all_other_games_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = Sport_All_Common_Games_Women_serializer
+    queryset = Sport_All_Common_Games_Women.objects.all()
     
 def sendmailtoalreadyregistered_men(id=None):
     listmen = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'mode_of_transportation',
