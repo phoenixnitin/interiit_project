@@ -245,6 +245,10 @@ class Register_Page(View):
 def Redirect_To_Register_Page(request):
     return redirect('/sport/register/')
 
+def Download_JSON(request):
+    if request.method == 'GET':
+        return render(request, 'download.html')
+
 class json_aquatics_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Men_serializer
     queryset = Sport_Aquatics_Men.objects.all()
