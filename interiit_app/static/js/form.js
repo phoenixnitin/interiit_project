@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$('.controls select').addClass('btn-primary');
 	$('.controls input').addClass('btn-primary');
-	$('#div_id_sport_name .controls input').prop('disabled', 'true');
-  $('#div_id_sport_name').remove();
+	$('#id_sport_name_container input').prop('disabled', 'true');
+  $('#id_sport_name_container').parent().remove();
 });

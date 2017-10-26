@@ -5,13 +5,16 @@ $(document).ready(function(){
     setTopMargin();
     $('#sel1').bind('change',function(){
         sport();
+        // console.log('sport changed');
     });
     $('#sel2').bind('change',function(){
         category();
         setTopMargin();
+        // console.log('category changed');
     });
     $('#sel3').bind('change',function(){
         gender();
+        // console.log('gender changed');
     });
     $('.container select').addClass('btn-primary');
     $(window).resize(function () {
@@ -38,28 +41,52 @@ function category() {
     else if ($('#sel2').val() === 'facultyandstaff'){
         $('#gender-selector').addClass('hide');
         $('#sport-selector').removeClass('hide');
-        $('.male').removeClass('hide');
-        $('#sel1').val('---');
+        $('#sport-selector-women').addClass('hide');
+        // $('.male').removeClass('hide');
+        // $('#sel1').val('---');
+        resetSport();
     }
     else {
       $('#sport-selector').addClass('hide');
-      $('#sel1').val('---');
+      $('#gender-selector').addClass('hide');
+      // $('#sel1').val('---');
+      resetSport();
     }
     return $('#sel2').val();
 }
 
 function gender() {
-    if($('#sel3').val() === 'men')
-      $('.male').removeClass('hide');
-    else
-      $('.male').addClass('hide');
-    $('#sel1').val('---');
+    if($('#sel3').val() === 'men'){
+      // $('.male').removeClass('hide');
+      $('#sport-selector-women').addClass('hide');
+      $('#sport-selector').removeClass('hide');
+      // hideFemaleSport('men');
+    }
+    else{
+      // $('.male').addClass('hide');
+      $('#sport-selector').addClass('hide');
+      $('#sport-selector-women').removeClass('hide');
+      // hideFemaleSport('women');
+    }
+    // $('#sel1').val('---');
+    resetSport();
     return $('#sel3').val();
+}
+function resetSport() {
+  $('#sport-selector input').val('---');
+  $('#sport-selector select').val("None");
+  $('#sport-selector select').material_select();
+  $('#sport-selector-women input').val('---');
+  $('#sport-selector-women select').val("None");
+  $('#sport-selector-women select').material_select();
 }
 
 function getRegistrationForm(){
     var host = window.location.origin;
-    var sport = $('#sel1').val();
+    if($('#sel3').val() === 'men')
+      var sport = $('#sel1').val();
+    else
+      var sport = $('#sel4').val();
     var category = $('#sel2').val();
     var url;
     if (category === 'facultyandstaff')

@@ -14,10 +14,12 @@ body {
   border: 2px rgba(0, 0, 0, 0.5);
   border-style: solid;
   border-radius: 10px;
+  min-width: 300px;
 }
 #register-page .container #description {
   margin-top: 10px;
   font-size: 16px;
+  margin-bottom: 25px;
 }
 #register-page .container #sport-selector {
   margin-top: 10px;
@@ -30,9 +32,53 @@ body {
   text-align: center;
   margin-bottom: 15px;
 }
-.btn-primary {
-  background-color: #1c3f50;
+.btn-primary, .btn-primary:hover {
+  background-color: transparent;
+  color: #37474f;
 }
 .btn-primary:hover .btn-primary:active .btn-primary:focus {
   background-color: rgba(28, 63, 80, 0.6);
+}
+.input-field label{
+  color: #37474f;
+  font-size: 14px;
+}
+.caret{
+  border-top: 0px dashed;
+}
+.input-field{
+  max-width: 400px;
+  margin: 15px auto;
+  height: 60px;
+}
+h3{
+  margin: 15px auto;
+  max-width: 400px;
+  font-size: 24px;
+  padding-bottom: 5px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+img{
+  /*max-width: 52px;*/
+  margin-top: -9px;
+  width: auto !important;
+}
+.img-left{
+  height: 90px;
+}
+.img-right{
+  height: 120px;
+  float: right;
+}
+table{
+  margin-bottom: -20px !important;
+}
+table td{
+  vertical-align: middle !important;
+}
+#btn-click{
+  width: inherit;
+  height: inherit;
+  white-space: normal;
 }
