@@ -188,7 +188,7 @@ class Sport_Aquatics_Staff(models.Model):
 
 class Sport_Athletics_Men(models.Model):
     def path_and_rename(instance, filename):
-        upload_to = 'MainMeet/Athletics/Men'
+        upload_to = 'MainMeet/{}/Men/Athletics'.format(instance.iit_name)
         ext = filename.split('.')[-1]
         namearray = instance.student_name.split(' ')
         namelen = len(namearray)
@@ -226,7 +226,7 @@ class Sport_Athletics_Men(models.Model):
 
 class Sport_Athletics_Women(models.Model):
     def path_and_rename(instance, filename):
-        upload_to = 'MainMeet/Athletics/Women'
+        upload_to = 'MainMeet/{}/Women/Athletics'.format(instance.iit_name)
         ext = filename.split('.')[-1]
         namearray = instance.student_name.split(' ')
         namelen = len(namearray)
@@ -257,28 +257,7 @@ class Sport_Athletics_Women(models.Model):
 
 class Staff(models.Model):
     def path_and_rename(instance, filename):
-        if instance.sport_name == 'Athletics':
-            upload_to = 'MainMeet/Athletics/FacultyAndStaff'
-        elif instance.sport_name == 'Badminton':
-            upload_to = 'MainMeet/Badminton/FacultyAndStaff'
-        elif instance.sport_name == 'Basketball':
-            upload_to = 'MainMeet/Basketball/FacultyAndStaff'
-        elif instance.sport_name == 'Cricket':
-            upload_to = 'MainMeet/Cricket/FacultyAndStaff'
-        elif instance.sport_name == 'Football':
-            upload_to = 'MainMeet/Football/FacultyAndStaff'
-        elif instance.sport_name == 'Hockey':
-            upload_to = 'MainMeet/Hockey/FacultyAndStaff'
-        elif instance.sport_name == 'Squash':
-            upload_to = 'MainMeet/Squash/FacultyAndStaff'
-        elif instance.sport_name == 'Table Tennis':
-            upload_to = 'MainMeet/Table Tennis/FacultyAndStaff'
-        elif instance.sport_name == 'Tennis':
-            upload_to = 'MainMeet/Tennis/FacultyAndStaff'
-        elif instance.sport_name == 'Volleyball':
-            upload_to = 'MainMeet/Volleyball/FacultyAndStaff'
-        else:
-            upload_to = 'MainMeet/Weightlifting/FacultyAndStaff'
+        upload_to = 'MainMeet/{}/FacultyAndStaff/{}'.format(instance.iit_name, instance.sport_name)
         ext = filename.split('.')[-1]
         namearray = instance.staff_name.split(' ')
         namelen = len(namearray)
@@ -301,7 +280,7 @@ class Staff(models.Model):
 
 class Sport_Weightlifting(models.Model):
     def path_and_rename(instance, filename):
-        upload_to = 'MainMeet/Weightlifting/Men'
+        upload_to = 'MainMeet/{}/Men/Weightlifting'.format(instance.iit_name)
         ext = filename.split('.')[-1]
         namearray = instance.student_name.split(' ')
         namelen = len(namearray)
@@ -326,24 +305,7 @@ class Sport_Weightlifting(models.Model):
 
 class Sport_All_Common_Games_Men(models.Model):
     def path_and_rename(instance, filename):
-        if instance.sport_name == 'Badminton':
-            upload_to = 'MainMeet/Badminton/Men'
-        elif instance.sport_name == 'Basketball':
-            upload_to = 'MainMeet/Basketball/Men'
-        elif instance.sport_name == 'Cricket':
-            upload_to = 'MainMeet/Cricket/Men'
-        elif instance.sport_name == 'Football':
-            upload_to = 'MainMeet/Football/Men'
-        elif instance.sport_name == 'Hockey':
-            upload_to = 'MainMeet/Hockey/Men'
-        elif instance.sport_name == 'Squash':
-            upload_to = 'MainMeet/Squash/Men'
-        elif instance.sport_name == 'Table Tennis':
-            upload_to = 'MainMeet/Table Tennis/Men'
-        elif instance.sport_name == 'Tennis':
-            upload_to = 'MainMeet/Tennis/Men'
-        else:
-            upload_to = 'MainMeet/Volleyball/Men'
+        upload_to = 'MainMeet/{}/Men/{}'.format(instance.iit_name, instance.sport_name)
         ext = filename.split('.')[-1]
         namearray = instance.student_name.split(' ')
         namelen = len(namearray)
@@ -364,16 +326,7 @@ class Sport_All_Common_Games_Men(models.Model):
 
 class Sport_All_Common_Games_Women(models.Model):
     def path_and_rename(instance, filename):
-        if instance.sport_name == 'Badminton':
-            upload_to = 'MainMeet/Badminton/Women'
-        elif instance.sport_name == 'Basketball':
-            upload_to = 'MainMeet/Basketball/Women'
-        elif instance.sport_name == 'Table Tennis':
-            upload_to = 'MainMeet/Table Tennis/Women'
-        elif instance.sport_name == 'Tennis':
-            upload_to = 'MainMeet/Tennis/Women'
-        else:
-            upload_to = 'MainMeet/Volleyball/Women'
+        upload_to = 'MainMeet/{}/Women/{}'.format(instance.iit_name, instance.sport_name)
         ext = filename.split('.')[-1]
         namearray = instance.student_name.split(' ')
         namelen = len(namearray)
