@@ -344,3 +344,11 @@ class Sport_All_Common_Games_Women(models.Model):
     email = models.EmailField()
     food = models.CharField(max_length=20, default='VEGETARIAN', choices=CommomChoices.foodChoices)
     photo = models.ImageField(upload_to=path_and_rename, null=True, default=None)
+
+class debug(models.Model):
+    debug_id = models.IntegerField()
+    model = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    phone = PhoneNumberField()
+    mail_status = models.CharField(max_length=5, default='YES')

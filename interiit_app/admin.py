@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Sport_Weightlifting, Staff, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Sport_Weightlifting, Staff, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug
 
 # Register your models here.
 class AdminModel_Sport_Aquatics_Men(admin.ModelAdmin):
@@ -82,3 +82,11 @@ class AdminModel_Sport_All_Common_Sports(admin.ModelAdmin):
     search_fields = mylist
 admin.site.register(Sport_All_Common_Games_Men, AdminModel_Sport_All_Common_Sports)
 admin.site.register(Sport_All_Common_Games_Women, AdminModel_Sport_All_Common_Sports)
+
+class AdminModel_Debug(admin.ModelAdmin):
+    mylist = ('debug_id', 'model', 'name', 'phone', 'email', 'mail_status')
+    list_display = mylist
+    list_display_links = mylist
+    list_filter = mylist
+    search_fields = mylist
+admin.site.register(debug, AdminModel_Debug)

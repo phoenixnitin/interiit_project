@@ -4,7 +4,7 @@ from django.views import View
 from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form, Sports_Weightlifting_form, Staff_form, Sports_Athletics_Men_form, Sports_Athletics_Women_form, Sport_All_Common_Games_Men_form, Sport_All_Common_Games_Women_form
 from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer,Sport_Weightlifting_serializer, Staff_serializer, Sport_Athletics_Men_serializer, Sport_Athletics_Women_serializer, Sport_All_Common_Games_Men_serializer, Sport_All_Common_Games_Women_serializer
 from rest_framework import mixins, viewsets
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Weightlifting, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Weightlifting, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -15,7 +15,7 @@ from .response_message import response
 
 # Create your views here.
 
-def send_email(user, pwd, recipient, subject, body):
+def send_email(user, pwd, recipient, subject, body, instance, category, sport_name):
     import smtplib
     gmail_user = user
     gmail_pwd = pwd
@@ -32,9 +32,33 @@ def send_email(user, pwd, recipient, subject, body):
         server.login(gmail_user, gmail_pwd)
         server.sendmail(FROM, TO, message)
         server.close()
+        debug_view(instance, category, sport_name, 'YES')
         print('successfully sent the mail')
     except:
         print("failed to send mail")
+        debug_view(instance, category, sport_name, 'NO')
+
+def debug_view(instance, category, sport_name, status):
+    if category == 'men':
+        if sport_name == 'Athletics':
+            model = "Sport_Athletics_Men"
+        elif sport_name == 'Weightlifting':
+            model = "Sport_Weightlifting"
+        else:
+            model = "Sport_All_Common_Games_Men"
+        name = instance.student_name
+    elif category == 'women':
+        if sport_name == 'Athletics':
+            model = "Sport_Athletics_Women"
+        else:
+            model = "Sport_All_Common_Games_Women"
+        name = instance.student_name
+    else:
+        model = "Staff"
+        name = instance.staff_name
+
+    obj = debug(debug_id=instance.pk, model=model, email=instance.email, phone=instance.mobile_no, name=name, mail_status=status)
+    obj.save()
 
 class Sports_Register_view(View):
     @xframe_options_exempt
@@ -203,14 +227,13 @@ class Sports_Register_view(View):
             if category == 'facultyandstaff' or count <= 3:
                 print('form is valid')
                 form.full_clean()
-                form.save()
-
+                formsaved = form.save()
                 recepient_email = dictionary['email']
                 subject = "Registered Successfully for InterIIT Sports Meet 2017"
                 message = response(dict=dictionary, category=category, sport_name=sport_name.title())
                 print(message)
                 data = Data()
-                send_email(data.getid(),data.getpwd(),recepient_email,subject,message)
+                send_email(data.getid(),data.getpwd(),recepient_email,subject,message, formsaved, category, sport_name.title())
                 #send_email(data.getid(),data.getpwd(),data.getrecvid(),subject,message)
                 return render(request, 'registration-response.html', {
                     'message': 'Registration completed successfully. You are ready to rock at IIT Madras.',
@@ -300,7 +323,7 @@ def sendmailtoalreadyregistered_men(id=None):
     for object in queryset:
         #print(object, "\n\n\n")
         details = ""
-        for i in range(0,n):
+        for i in range(0, n):
             if listmen[i] == 'student_name':
                 details += "name : " + str(object[listmen[i]]) + "\n"
             elif listmen[i] == 'iit_name':
@@ -336,7 +359,7 @@ def sendmailtoalreadyregistered_women(id=None):
 
     for object in queryset:
         details = ""
-        for i in range(0,n):
+        for i in range(0, n):
             if listwomen[i] == 'student_name':
                 details += "name : " + str(object[listwomen[i]]) + "\n"
             elif listwomen[i] == 'iit_name':
@@ -370,7 +393,7 @@ def sendmailtoalreadyregistered_facultyandstaff(id=None):
 
     for object in queryset:
         details = ""
-        for i in range(0,n):
+        for i in range(0, n):
             if listfacultyandstaff[i] == 'staff_name':
                 details += "name : " + str(object[listfacultyandstaff[i]]) + "\n"
             elif listfacultyandstaff[i] == 'iit_name':
@@ -386,6 +409,118 @@ Details:
 
 In case of any error reply to this mail. Your image is stored in our database.
 '''.format(recepient_name, details)
+        recepient_email = object['email']
+        subject = "Registered Successfully for InterIIT Sports Meet 2017"
+        data = Data()
+        print(message)
+        send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+
+def send_mail_to_already_registered():
+    sport_name = ""
+    list = ""
+    queryset = ""
+
+    print("Select Model:\n1. Sport_Athletics_Men\n2. Sport_Athletics_Women\n3. Sport_Weightlifting\n4. Sport_All_Common_Games_Men\n5. Sport_All_Common_Games_Women\n6. Staff\n")
+    select_model = input()
+    print("1. Send by model data ID\n2. Send to all\n")
+    select_send = input()
+
+    id = ""
+    if select_send == str(1):
+        print("Enter id: ")
+        id = input()
+    # else:
+    #     print("Something wrong.")
+
+    # print("model = {}\nSend = {}\nid = {}".format(select_model, select_send, id))
+    if select_model == str(1):
+        list = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'food',
+                              '_100m', '_200m', '_400m', '_800m', '_1500m', '_5000m', 'hurdles_110m', 'hurdles_400m',
+                              'high_jump',
+                              'long_jump', 'triple_jump', 'pole_vault', 'shot_put', 'discuss_throw', 'javelin_throw',
+                              'hammer_throw',
+                              'relay_4x100m', 'relay_4x400m',)
+        sport_name = 'Athletics'
+        if select_send == str(1):
+            queryset = Sport_Athletics_Men.objects.values().filter(id=id)
+        elif select_send == str(2):
+            queryset = Sport_Athletics_Men.objects.values()
+        else:
+            print("Wrong Input")
+    if select_model == str(2):
+        list = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'food',
+                                '_100m', '_200m', '_400m', '_800m', '_1500m', 'high_jump', 'long_jump', 'shot_put',
+                                'discuss_throw',
+                                'relay_4x100m', 'relay_4x400m',)
+        sport_name = 'Athletics'
+        if select_send == str(1):
+            queryset = Sport_Athletics_Women.objects.values().filter(id=id)
+        elif select_send == str(2):
+            queryset = Sport_Athletics_Women.objects.values()
+        else:
+            print("Wrong Input")
+    if select_model == str(3):
+        list = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'food', 'upto_56kg', 'upto_62kg', 'upto_69kg',
+              'upto_77kg','above_77kg',)
+        sport_name = 'Weightlifting'
+        if select_send == str(1):
+            queryset = Sport_Weightlifting.objects.values().filter(id=id)
+        elif select_send == str(2):
+            queryset = Sport_Weightlifting.objects.values()
+        else:
+            print("Wrong Input")
+    if select_model == str(4):
+        list = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'food',)
+        if select_send == str(1):
+            queryset = Sport_All_Common_Games_Men.objects.values().filter(id=id)
+        elif select_send == str(2):
+            queryset = Sport_All_Common_Games_Men.objects.values()
+        else:
+            print("Wrong Input")
+        sport_name = queryset[0]['sport_name']
+    if select_model == str(5):
+        list = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 'email', 'food',)
+        if select_send == str(1):
+            queryset = Sport_All_Common_Games_Women.objects.values().filter(id=id)
+        elif select_send == str(2):
+            queryset = Sport_All_Common_Games_Women.objects.values()
+        else:
+            print("Wrong Input")
+        sport_name = queryset[0]['sport_name']
+    if select_model == str(6):
+        list = ('iit_name', 'staff_name', 'blood_group', 'mobile_no', 'email', 'food', 'designation',)
+        if select_send == str(1):
+            queryset = Staff.objects.values().filter(id=id)
+        elif select_send == str(2):
+            queryset = Staff.objects.values()
+        else:
+            print("Wrong Input")
+        sport_name = queryset[0]['sport_name']
+
+    n = len(list)
+    for object in queryset:
+        details = ""
+        for i in range(0, n):
+            if list[i] == 'staff_name' or list[i] == 'student_name':
+                details += "name : " + str(object[list[i]]) + "\n"
+            elif list[i] == 'iit_name':
+                details += str(object[list[i]]) + "\n"
+            else:
+                details += list[i] + " : " + str(object[list[i]]) + "\n"
+        if select_model == str(6):
+            recepient_name = object['staff_name']
+        else:
+            recepient_name = object['student_name']
+        message = '''Dear {}, 
+    You have successfully registered for InterIIT Sports Meet 2017.
+
+You have registered for {}.
+
+Details:
+{}
+
+In case of any error reply to this mail. Your image is stored in our database.
+'''.format(recepient_name, sport_name, details)
         recepient_email = object['email']
         subject = "Registered Successfully for InterIIT Sports Meet 2017"
         data = Data()
