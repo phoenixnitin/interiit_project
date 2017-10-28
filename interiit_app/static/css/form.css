@@ -86,3 +86,21 @@ table{
 table td{
   vertical-align: middle !important;
 }
+
+.dropdown-content li {
+  background-color: #333 !important;
+}
+.dropdown-content li > span {
+  color: white !important;
+}
+.dropdown-content li:hover, .dropdown-content li.active, .dropdown-content li.selected{
+  background-color: #444 !important;
+}
+#id_photo_container > .btn, button.btn{
+  color: white !important;
+  background-color: #333 !important;
+}
+#id_photo_container > .btn:hover, button.btn:hover, button.btn.active, button.btn.selected{
+  background-color: #444 !important;
+  color: white !important;
+}
