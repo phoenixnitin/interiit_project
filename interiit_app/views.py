@@ -180,7 +180,7 @@ class Sports_Register_view(View):
                 request.POST._mutable = True
                 request.POST['sport_name'] = sport_name.title()
                 form = Staff_form(request.POST, request.FILES)
-                queryset = Staff.objects.values().filter(email=dictionary['email'], staff_name=dictionary['staff_name'], sport_name=dictionary["sport_name"])
+                queryset = Staff.objects.values().filter(email=dictionary['email'], staff_name=dictionary['staff_name'], sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
             else:
@@ -200,7 +200,7 @@ class Sports_Register_view(View):
                 form = Staff_form(request.POST, request.FILES)
                 queryset = Staff.objects.values().filter(email=dictionary['email'],
                                                          staff_name=dictionary['staff_name'],
-                                                         sport_name=dictionary["sport_name"])
+                                                         sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
 
@@ -214,21 +214,21 @@ class Sports_Register_view(View):
                 form = Sport_All_Common_Games_Men_form(request.POST, request.FILES)
                 queryset = Sport_All_Common_Games_Men.objects.values().filter(email=dictionary['email'],
                                                          student_name=dictionary['student_name'],
-                                                         sport_name=dictionary["sport_name"])
+                                                         sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
             elif category == 'women':
                 form = Sport_All_Common_Games_Women_form(request.POST, request.FILES)
                 queryset = Sport_All_Common_Games_Women.objects.values().filter(email=dictionary['email'],
                                                          student_name=dictionary['student_name'],
-                                                         sport_name=dictionary["sport_name"])
+                                                         sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
             elif category == 'facultyandstaff':
                 form = Staff_form(request.POST, request.FILES)
                 queryset = Staff.objects.values().filter(email=dictionary['email'],
                                                          staff_name=dictionary['staff_name'],
-                                                         sport_name=dictionary["sport_name"])
+                                                         sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
             else:
@@ -241,14 +241,14 @@ class Sports_Register_view(View):
                 form = Sport_All_Common_Games_Men_form(request.POST, request.FILES)
                 queryset = Sport_All_Common_Games_Men.objects.values().filter(email=dictionary['email'],
                                                          student_name=dictionary['student_name'],
-                                                         sport_name=dictionary["sport_name"])
+                                                         sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
             elif category == 'facultyandstaff':
                 form = Staff_form(request.POST, request.FILES)
                 queryset = Staff.objects.values().filter(email=dictionary['email'],
                                                          staff_name=dictionary['staff_name'],
-                                                         sport_name=dictionary["sport_name"])
+                                                         sport_name=sport_name.title())
                 if len(queryset) > 0:
                     duplicate = 1
             else:
