@@ -7,6 +7,7 @@ body {
 .submit-button {
   text-align: center;
   margin-bottom: 10px;
+  min-width: 300px;
 }
 .registration-form {
   margin: 15px 0px;
@@ -20,7 +21,6 @@ body {
   border: 2px rgba(0, 0, 0, 0.5);
   border-style: solid;
   border-radius: 10px;
-  min-width: 300px;
 }
 .registration-form .container form {
   margin: 15px auto;
@@ -41,30 +41,31 @@ body {
 .btn-primary:hover .btn-primary:active .btn-primary:focus {
   background-color: rgba(28, 63, 80, 0.6);
 }
-.red{
+.red {
   color: red;
   background-color: transparent !important;
 }
-h3{
+h3 {
   font-size: 24px;
 }
-h4{
+h4 {
   font-size: 18px;
 }
-.input-field label{
+.input-field label {
   color: #37474f;
 }
-label{
+label {
   font-size: 14px;
   color: #37474f;
 }
 .input-field label:not(.label-icon).active {
-    font-size: 14px;
+  font-size: 14px;
 }
-input{
+input {
   border-bottom: 1px solid #37474f;
   box-shadow: 0 1px 0 0 #37474f;
 }
+
 .caret{
   border-top: 0px dashed;
 }
@@ -104,3 +105,4 @@ table td{
   background-color: #444 !important;
   color: white !important;
 }
+
