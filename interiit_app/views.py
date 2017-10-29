@@ -15,7 +15,7 @@ from .response_message import response
 
 # Create your views here.
 
-def send_email(user, pwd, recipient, subject, body, instance, category, sport_name):
+def send_email(user, pwd, recipient, subject, body, instance=None, category=None, sport_name=None):
     import smtplib
     gmail_user = user
     gmail_pwd = pwd
@@ -32,11 +32,13 @@ def send_email(user, pwd, recipient, subject, body, instance, category, sport_na
         server.login(gmail_user, gmail_pwd)
         server.sendmail(FROM, TO, message)
         server.close()
-        debug_view(instance, category, sport_name, 'YES')
+        if instance is not None:
+            debug_view(instance, category, sport_name, 'YES')
         print('successfully sent the mail')
     except:
         print("failed to send mail")
-        debug_view(instance, category, sport_name, 'NO')
+        if instance is not None:
+            debug_view(instance, category, sport_name, 'NO')
 
 def debug_view(instance, category, sport_name, status):
     if category == 'men':
