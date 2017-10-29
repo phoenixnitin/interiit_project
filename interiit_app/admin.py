@@ -84,7 +84,7 @@ admin.site.register(Sport_All_Common_Games_Men, AdminModel_Sport_All_Common_Spor
 admin.site.register(Sport_All_Common_Games_Women, AdminModel_Sport_All_Common_Sports)
 
 class AdminModel_Debug(admin.ModelAdmin):
-    mylist = ('debug_id', 'model', 'name', 'phone', 'email', 'mail_status')
+    mylist = ('id', 'debug_id', 'model', 'name', 'phone', 'email', 'mail_status')
     list_display = mylist
     list_display_links = mylist
     list_filter = mylist

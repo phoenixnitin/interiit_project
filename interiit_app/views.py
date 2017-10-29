@@ -136,9 +136,11 @@ class Sports_Register_view(View):
 
     @xframe_options_exempt
     def post(self, request, sport_name, category, *args, **kwargs):
+        dictionary = request.POST.dict()
         form = ''
         list = ''
         extra_text = ''
+        duplicate = 0
         if sport_name == 'aquatics':
             if category == 'men':
                 form = Sports_Aquatics_Men_form(request.POST, request.FILES)
@@ -162,14 +164,25 @@ class Sports_Register_view(View):
                         'high_jump', 'long_jump', 'triple_jump', 'pole_vault', 'shot_put', 'discuss_throw',
                         'javelin_throw', 'hammer_throw']
                 extra_text = ', other than relays'
+                queryset = Sport_Athletics_Men.objects.values().filter(email=dictionary['email'],
+                                                                       student_name=dictionary['student_name'])
+                if len(queryset) > 0:
+                    duplicate = 1
             elif category == 'women':
                 form = Sports_Athletics_Women_form(request.POST, request.FILES)
                 list = ['_100m', '_200m', '_400m', '_800m', '_1500m', 'high_jump', 'long_jump', 'shot_put', 'discuss_throw']
                 extra_text = ', other than relays'
+                queryset = Sport_Athletics_Women.objects.values().filter(email=dictionary['email'],
+                                                                       student_name=dictionary['student_name'])
+                if len(queryset) > 0:
+                    duplicate = 1
             elif category == 'facultyandstaff':
                 request.POST._mutable = True
                 request.POST['sport_name'] = sport_name.title()
                 form = Staff_form(request.POST, request.FILES)
+                queryset = Staff.objects.values().filter(email=dictionary['email'], staff_name=dictionary['staff_name'], sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
             else:
                 print('Category doesn\'t exist')
 
@@ -177,10 +190,19 @@ class Sports_Register_view(View):
             if category == 'men':
                 form = Sports_Weightlifting_form(request.POST, request.FILES)
                 list = ['upto_56kg', 'upto_62kg', 'upto_69kg', 'upto_77kg', 'above_77kg']
+                queryset = Sport_Weightlifting.objects.values().filter(email=dictionary['email'],
+                                                         student_name=dictionary['student_name'])
+                if len(queryset) > 0:
+                    duplicate = 1
             elif category == 'facultyandstaff':
                 request.POST._mutable = True
                 request.POST['sport_name'] = sport_name.title()
                 form = Staff_form(request.POST, request.FILES)
+                queryset = Staff.objects.values().filter(email=dictionary['email'],
+                                                         staff_name=dictionary['staff_name'],
+                                                         sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
 
         elif sport_name == 'badminton' or sport_name == 'basketball' or sport_name == 'tennis' or sport_name == 'volleyball' or sport_name == 'table_tennis':
             request.POST._mutable = True
@@ -190,10 +212,25 @@ class Sports_Register_view(View):
             request.POST['sport_name'] = sport_name.title()
             if category == 'men':
                 form = Sport_All_Common_Games_Men_form(request.POST, request.FILES)
+                queryset = Sport_All_Common_Games_Men.objects.values().filter(email=dictionary['email'],
+                                                         student_name=dictionary['student_name'],
+                                                         sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
             elif category == 'women':
                 form = Sport_All_Common_Games_Women_form(request.POST, request.FILES)
+                queryset = Sport_All_Common_Games_Women.objects.values().filter(email=dictionary['email'],
+                                                         student_name=dictionary['student_name'],
+                                                         sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
             elif category == 'facultyandstaff':
                 form = Staff_form(request.POST, request.FILES)
+                queryset = Staff.objects.values().filter(email=dictionary['email'],
+                                                         staff_name=dictionary['staff_name'],
+                                                         sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
             else:
                 print('Category doesn\'t exist')
 
@@ -202,18 +239,32 @@ class Sports_Register_view(View):
             request.POST['sport_name'] = sport_name.title()
             if category == 'men':
                 form = Sport_All_Common_Games_Men_form(request.POST, request.FILES)
+                queryset = Sport_All_Common_Games_Men.objects.values().filter(email=dictionary['email'],
+                                                         student_name=dictionary['student_name'],
+                                                         sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
             elif category == 'facultyandstaff':
                 form = Staff_form(request.POST, request.FILES)
+                queryset = Staff.objects.values().filter(email=dictionary['email'],
+                                                         staff_name=dictionary['staff_name'],
+                                                         sport_name=dictionary["sport_name"])
+                if len(queryset) > 0:
+                    duplicate = 1
             else:
                 print('Category doesn\'t exist')
 
         else:
             print('Sport doesn\'t exist')
 
+        if duplicate == 1:
+            return render(request, 'registration-response.html', {
+                    'message': 'Already Registered.This is not saved.',
+                    'duplicate': duplicate
+                })
         print('self', self)
         print('request', request.POST)
         print('*args', args)
-        dictionary = request.POST.dict()
         count = 0
         if sport_name == 'weightlifting':
             count = count + 1

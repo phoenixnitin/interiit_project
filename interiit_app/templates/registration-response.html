@@ -23,6 +23,10 @@
                 {% endif %}
             </div>
             <div class="message">{{message}}</div>
+            {% if duplicate == 1 %}
+          <div class="message">Reply to the mail that you have previously received, in case you want modification.</div>
+          <div class="message">If you feel it's an error, then reply to : <br><a href="mailto:contactus@interiitsportsmeet.com">contactus@interiitsportsmeet.com</a></div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
