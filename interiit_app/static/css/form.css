@@ -1,6 +1,6 @@
 body {
-  background-repeat: no-repeat;
-  background-image: url("../img/background.jpg");
+  background-repeat: repeat;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.0)),url(../img/background.png);
   background-attachment: fixed;
   font-family: 'Muli', "Helvetica", Arial, sans-serif;
 }
