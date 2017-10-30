@@ -4,6 +4,7 @@ from django.views import View
 from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form, Sports_Weightlifting_form, Staff_form, Sports_Athletics_Men_form, Sports_Athletics_Women_form, Sport_All_Common_Games_Men_form, Sport_All_Common_Games_Women_form
 from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer,Sport_Weightlifting_serializer, Staff_serializer, Sport_Athletics_Men_serializer, Sport_Athletics_Women_serializer, Sport_All_Common_Games_Men_serializer, Sport_All_Common_Games_Women_serializer
 from rest_framework import mixins, viewsets
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Weightlifting, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -12,7 +13,7 @@ import json
 import time
 from .data import Data
 from .response_message import response
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def send_email(user, pwd, recipient, subject, body, instance=None, category=None, sport_name=None):
@@ -321,43 +322,44 @@ class Register_Page(View):
 def Redirect_To_Register_Page(request):
     return redirect('/sport/register/')
 
+@login_required(login_url='/login/')
 def Download_JSON(request):
     if request.method == 'GET':
         return render(request, 'download.html')
 
-class json_aquatics_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_aquatics_men(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Men_serializer
     queryset = Sport_Aquatics_Men.objects.all()
 
-class json_aquatics_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_aquatics_women(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Women_serializer
     queryset = Sport_Aquatics_Women.objects.all()
 
-class json_aquatics_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_aquatics_staff(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Staff_serializer
     queryset = Sport_Aquatics_Staff.objects.all()
-    
-class json_weightlifting(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+
+class json_weightlifting(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Weightlifting_serializer
     queryset = Sport_Weightlifting.objects.all()
 
-class json_athletics_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_athletics_men(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Athletics_Men_serializer
     queryset = Sport_Athletics_Men.objects.all()
 
-class json_athletics_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_athletics_women(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Athletics_Women_serializer
     queryset = Sport_Athletics_Women.objects.all()
 
-class json_staff(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_staff(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Staff_serializer
     queryset = Staff.objects.all()
 
-class json_sport_all_other_games_men(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_sport_all_other_games_men(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_All_Common_Games_Men_serializer
     queryset = Sport_All_Common_Games_Men.objects.all()
 
-class json_sport_all_other_games_women(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class json_sport_all_other_games_women(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_All_Common_Games_Women_serializer
     queryset = Sport_All_Common_Games_Women.objects.all()
     

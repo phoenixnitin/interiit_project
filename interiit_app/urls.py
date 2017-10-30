@@ -2,12 +2,15 @@ from django.conf.urls import url
 from . import views
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.Redirect_To_Register_Page),
     url(r'^sport/(?P<sport_name>[a-zA-Z0-9_.-]+)/(?P<category>[a-zA-Z0-9_.-]+)/$', views.Sports_Register_view.as_view(), name='sports_register'),
     url(r'^sport/register/$', views.Register_Page.as_view(), name='register-page'),
     url(r'^download/$', views.Download_JSON, name='download-json'),
+    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/login?next=/download/'}, name='logout'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
