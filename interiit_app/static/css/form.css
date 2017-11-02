@@ -1,12 +1,13 @@
 body {
-  background-repeat: no-repeat;
-  background-image: url("../img/background.jpg");
+  background-repeat: repeat;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.0), rgba(255, 255, 255, 0.0)),url(../img/background.png);
   background-attachment: fixed;
   font-family: 'Muli', "Helvetica", Arial, sans-serif;
 }
 .submit-button {
   text-align: center;
   margin-bottom: 10px;
+  min-width: 300px;
 }
 .registration-form {
   margin: 15px 0px;
@@ -28,7 +29,7 @@ body {
 .registration-form .container form #div_id_mobile_no div select {
   margin-bottom: 10px;
 }
-.registration-form .container h3 {
+.registration-form .container h3, .registration-form .container h4 {
   margin: 15px;
   text-align: center;
   padding-bottom: 5px;
@@ -40,3 +41,68 @@ body {
 .btn-primary:hover .btn-primary:active .btn-primary:focus {
   background-color: rgba(28, 63, 80, 0.6);
 }
+.red {
+  color: red;
+  background-color: transparent !important;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+.input-field label {
+  color: #37474f;
+}
+label {
+  font-size: 14px;
+  color: #37474f;
+}
+.input-field label:not(.label-icon).active {
+  font-size: 14px;
+}
+input {
+  border-bottom: 1px solid #37474f;
+  box-shadow: 0 1px 0 0 #37474f;
+}
+
+.caret{
+  border-top: 0px dashed;
+}
+img{
+  /*max-width: 52px;*/
+  margin-top: -9px;
+  width: auto !important;
+}
+.img-left{
+  height: 90px;
+}
+.img-right{
+  height: 120px;
+  float: right;
+}
+table{
+  margin-bottom: -20px !important;
+}
+table td{
+  vertical-align: middle !important;
+}
+
+.dropdown-content li {
+  background-color: #333 !important;
+}
+.dropdown-content li > span {
+  color: white !important;
+}
+.dropdown-content li:hover, .dropdown-content li.active, .dropdown-content li.selected{
+  background-color: #444 !important;
+}
+#id_photo_container > .btn, button.btn{
+  color: white !important;
+  background-color: #333 !important;
+}
+#id_photo_container > .btn:hover, button.btn:hover, button.btn.active, button.btn.selected{
+  background-color: #444 !important;
+  color: white !important;
+}
+

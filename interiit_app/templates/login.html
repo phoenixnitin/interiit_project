@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{% static 'img/interiit_favicon.ico' %}">
+  <title>Inter IIT Sports Meet 2017</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Muli:400,300|Ubuntu:400,400italic|Gabriela|Roboto:400,300,700,100|Open+Sans:300italic,400italic,600italic,400,700,300,600|Open+Sans+Condensed:300|Exo+2">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+  body{
+    font-family: 'Muli', "Helvetica", Arial, sans-serif;
+    background-color: #ededed;
+  }
+  .container{
+    margin: 50 auto;
+    background-color: #474747;
+    color: white;
+    width: fit-content;
+    width: -moz-fit-content;
+    max-width: 310px;
+    padding: 25px;
+    box-shadow: 4px 4px 10px 2px #000;
+  }
+  .btn-container{
+    text-align: center;
+  }
+  #title{
+    border-bottom: 1px solid white;
+    margin-bottom: 20px;
+  }
+  input{
+    color: black;
+  }
+
+</style>
+<body>{% block content %}
+  <div class="container">
+    <div id="title"><h3>Login</h3></div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="btn-container col-xs-12"><button type="submit" class="btn btn-default">Login</button></div>
+    </form>
+  </div>
+{% endblock %}
+</body>

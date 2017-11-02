@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load material_form %}
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="{% static 'img/interiit_favicon.ico' %}">
@@ -7,36 +8,73 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Muli:400,300|Ubuntu:400,400italic|Gabriela|Roboto:400,300,700,100|Open+Sans:300italic,400italic,600italic,400,700,300,600|Open+Sans+Condensed:300|Exo+2">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% include 'material/includes/material_css.html' %}
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
   <link rel="stylesheet" href="{% static 'css/register.css' %}">
   <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 </head>
 <body>
     <div id="register-page">
         <div class="container">
-            <div id="description" class="form-group">Please select below to go to the registration page.</div>
-            <div id='sport-selector' class="form-group">
-                <label for="sel1">Select Sport:</label>
-                <select class="form-control" id="sel1">
-                    <option value="aquatics">Aquatics</option>
-                </select>
+            <table class="table col-xs-12">
+              <tr><td><img src="http://www.interiit.com/app/assets/interiit_logo_main.png" class="col-xs-12 img-left"></td>
+                <td><img src="http://www.interiit.com/app/assets/interiit_logo.png" class="col-xs-12 img-right"></td></tr></table>
+          <div class="col-xs-12">
+          <h3>
+              <!--<img src="http://www.interiit.com/app/assets/interiit_logo_main.png">-->
+            52nd InterIIT Registration
+              <!--<img src="http://www.interiit.com/app/assets/interiit_logo.png">-->
+            </h3>
             </div>
-
-            <div id='category-selector' class="form-group">
-                <label for="sel1">Select Category:</label>
-                <select class="form-control" id="sel2">
-                    <option value="---">---</option>
+            <div id="description" class="form-group">Please select below to go to the registration page.</div>
+            <div id='category-selector' class="form-group input-field col s12">
+                <select id="sel2">
+                    <option value="---" disabled selected>--------</option>
                     <option value="participant">Participant</option>
                     <option value="facultyandstaff">Faculty and Staff</option>
                 </select>
+                <label>Select Category:</label>
             </div>
 
-            <div id='gender-selector' class="form-group hide">
-                <label for="sel1">Select Gender:</label>
-                <select class="form-control" id="sel3">
-                    <option value="men">Male</option>
+            <div id='gender-selector' class="form-group input-field col s12 hide">
+                <select id="sel3">
+                    <option value="men" selected>Male</option>
                     <option value="women">Female</option>
                 </select>
+                <label>Select Gender:</label>
             </div>
+
+            <div id='sport-selector' class="form-group input-field col s12 hide">
+                <select id="sel1">
+                    <option value="---" disabled selected>--------</option>
+                    <option value="athletics">Athletics</option>
+                    <option value="badminton">Badminton</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="cricket">Cricket</option>
+                    <option value="football">Football</option>
+                    <option value="hockey">Hockey</option>
+                    <option value="squash">Squash</option>
+                    <option value="table_tennis">Table Tennis</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="volleyball">Volleyball</option>
+                    <option value="weightlifting">Weightlifting</option>
+                </select>
+                <label>Select Sport:</label>
+            </div>
+            <div id='sport-selector-women' class="form-group input-field col s12 hide">
+                <select id="sel4">
+                    <option value="---" disabled selected>--------</option>
+                    <option value="athletics">Athletics</option>
+                    <option value="badminton">Badminton</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="table_tennis">Table Tennis</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="volleyball">Volleyball</option>
+                </select>
+                <label>Select Sport:</label>
+              </div>
+
             <div id="btn1" class="col-xs-12">
                 <button id='btn-click' class="btn btn-default" onclick="getRegistrationForm()">Get Registration form</button>
             </div>

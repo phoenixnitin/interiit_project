@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load material_form %}
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="{% static 'img/interiit_favicon.ico' %}">
@@ -7,6 +8,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Muli:400,300|Ubuntu:400,400italic|Gabriela|Roboto:400,300,700,100|Open+Sans:300italic,400italic,600italic,400,700,300,600|Open+Sans+Condensed:300|Exo+2">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% include 'material/includes/material_css.html' %}
+  <script src="{% static 'material/js/jquery.js' %}"></script>
+  {% include 'material/includes/material_js.html' %}
   <link rel="stylesheet" href="{% static 'css/register.css' %}">
   <link rel="stylesheet" href="{% static 'css/registration-response.css' %}">
   <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
@@ -23,6 +27,10 @@
                 {% endif %}
             </div>
             <div class="message">{{message}}</div>
+            {% if duplicate == 1 %}
+          <div class="message">Reply to the mail that you have previously received, in case you want modification.</div>
+          <div class="message">If you feel it's an error, then reply to : <br><a href="mailto:contactus@interiitsportsmeet.com">contactus@interiitsportsmeet.com</a></div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load material_form %}
 <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="{% static 'img/interiit_favicon.ico' %}">
@@ -8,6 +9,9 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Muli:400,300|Ubuntu:400,400italic|Gabriela|Roboto:400,300,700,100|Open+Sans:300italic,400italic,600italic,400,700,300,600|Open+Sans+Condensed:300|Exo+2">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% include 'material/includes/material_css.html' %}
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
   <link rel="stylesheet" href="{% static 'css/form.css' %}">
   <script type="text/javascript" src="{% static 'js/form.js' %}"></script>
 </head>
@@ -15,9 +19,14 @@
 {% block content %}
     <div class="registration-form">
         <div class="container">
+          <table class="table col-xs-12">
+              <tr><td><img src="http://www.interiit.com/app/assets/interiit_logo_main.png" class="col-xs-12 img-left"></td>
+                <td><img src="http://www.interiit.com/app/assets/interiit_logo.png" class="col-xs-12 img-right"></td></tr></table>
             <h3>{{ heading }}</h3>
+          <h4>You are registering for <span class="red">{{ sport }}</span></h4>
             <form method="POST" enctype='multipart/form-data'>
-                {% crispy form %}
+                {% csrf_token %}
+                {% form form=form %}{% endform %}
                 <div class="submit-button col-xs-12"><button type="submit" class="save btn btn-default">Submit</button></div>
             </form>
         </div>
