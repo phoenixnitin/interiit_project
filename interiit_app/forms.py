@@ -129,3 +129,28 @@ class Sports_Aquatics_Staff_form(ModelForm):
             'arrival_time': _('Please enter in format HH:MM AM/PM'),
             'departure_time': _('Please enter in format HH:MM AM/PM'),
         }
+
+class Sports_Athletics_Men_form(ModelForm):
+    helper = FormHelper()
+    helper.form_tag = False
+    sport_name = forms.CharacterField(max_length=10)
+    class Meta:
+        model = Sports_Athletics_Men
+        fields = '__all__'
+        labels = {
+            "iit_name": _('IIT'),
+            "student_name": _('Name'),
+            "blood_group": _('Blood Group'),
+            "mobile_no": _('Contact No.'),
+            "email": _('E-mail'),
+            "photo": _('Photo'),
+            "food": _('Food'),
+        }
+        widgets = {
+            'mobile_no': PhoneNumberInternationalFallbackWidget,
+        }
+        help_texts = {
+            'mobile_no': _('Please enter your country code, if not from India'),
+            'photo': _('Please upload passport size photo')
+        }
+

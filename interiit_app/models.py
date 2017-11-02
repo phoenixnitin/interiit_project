@@ -196,7 +196,7 @@ class Sport_Athletics_Men(models.Model):
         name = ''
         for i in range(0, namelen):
             name = name + namearray[i].capitalize()
-        filename = '{}_Participant_{}.{}'.format(name, instance.iit_name, ext)
+        filename = '{}_Participant_{}_{}.{}'.format(name, , instance.iit_name, ext)
         return os.path.join(upload_to, filename)
 
 	iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
@@ -235,7 +235,7 @@ class Sport_Athletics_Women(models.Model):
         name = ''
         for i in range(0, namelen):
             name = name + namearray[i].capitalize()
-        filename = '{}_Participant_{}.{}'.format(name, instance.iit_name, ext)
+        filename = '{}_Participant_Athletics_{}.{}'.format(name,instance.iit_name, ext)
         return os.path.join(upload_to, filename)
 
 	iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)

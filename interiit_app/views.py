@@ -254,3 +254,5 @@ In case of any error reply to this mail. Your image is stored in our database.
         data = Data()
         print(message)
         send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+
+class Athletics_Register_View()
