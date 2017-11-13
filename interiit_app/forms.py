@@ -161,7 +161,6 @@ class Staff_form(ModelForm):
 class Sports_Athletics_Men_form(ModelForm):
     helper = FormHelper()
     helper.form_tag = False
-
     class Meta:
         model = Sport_Athletics_Men
         fields = '__all__'
