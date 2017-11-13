@@ -25,15 +25,15 @@ list_all_other_games = ('iit_name', 'student_name', 'blood_group', 'mobile_no', 
 
 def response(dict, category, sport_name):
     if category == 'men':
-        if sport_name == 'athletics':
+        if sport_name == 'Athletics':
             mylist = list_athletics_men
-        elif sport_name == 'weightlifting':
+        elif sport_name == 'Weightlifting':
             mylist = list_weightlifting_men
         else:
             mylist = list_all_other_games
         recepient_name = dict['student_name']
     elif category == 'women':
-        if sport_name == 'athletics':
+        if sport_name == 'Athletics':
             mylist = list_athletics_women
         else:
             mylist = list_all_other_games

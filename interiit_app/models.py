@@ -287,8 +287,8 @@ class Sport_Weightlifting(models.Model):
         name = ''
         for i in range(0, namelen):
             name = name + namearray[i].capitalize()
-            filename = '{}_Participant_Weightlifting_{}.{}'.format(name, instance.iit_name, ext)
-            return os.path.join(upload_to, filename)
+        filename = '{}_Participant_Weightlifting_{}.{}'.format(name, instance.iit_name, ext)
+        return os.path.join(upload_to, filename)
 
     iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
     student_name = models.CharField(max_length=50)
@@ -312,8 +312,8 @@ class Sport_All_Common_Games_Men(models.Model):
         name = ''
         for i in range(0, namelen):
             name = name + namearray[i].capitalize()
-            filename = '{}_Participant_{}_{}.{}'.format(name, instance.sport_name, instance.iit_name, ext)
-            return os.path.join(upload_to, filename)
+        filename = '{}_Participant_{}_{}.{}'.format(name, instance.sport_name, instance.iit_name, ext)
+        return os.path.join(upload_to, filename)
 
     sport_name = models.CharField(max_length=30, null=True, blank=True)
     iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
@@ -333,8 +333,8 @@ class Sport_All_Common_Games_Women(models.Model):
         name = ''
         for i in range(0, namelen):
             name = name + namearray[i].capitalize()
-            filename = '{}_Participant_{}_{}.{}'.format(name, instance.sport_name, instance.iit_name, ext)
-            return os.path.join(upload_to, filename)
+        filename = '{}_Participant_{}_{}.{}'.format(name, instance.sport_name, instance.iit_name, ext)
+        return os.path.join(upload_to, filename)
 
     sport_name = models.CharField(max_length=30, null=True, blank=True)
     iit_name = models.CharField(max_length=25, choices=CommomChoices.iitChoices)
