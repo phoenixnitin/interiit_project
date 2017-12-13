@@ -13,7 +13,7 @@ class CommomChoices:
         ('IIT KANPUR', 'IIT Kanpur'),
         ('IIT MADRAS', 'IIT Madras'),
         ('IIT DELHI', 'IIT Delhi'),
-        ('IIT GUHAWATI', 'IIT Guhawati'),
+        ('IIT GUWAHATI', 'IIT Guwahati'),
         ('IIT ROORKEE', 'IIT Roorkee'),
         ('IIT BHUBANESHWAR', 'IIT Bhubaneshwar'),
         ('IIT GANDHINAGAR', 'IIT Gandhinagar'),

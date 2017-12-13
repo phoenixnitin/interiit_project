@@ -41,15 +41,15 @@ class AdminModel_Sport_Weightlifting(admin.ModelAdmin):
               'upto_77kg','above_77kg',)
     list_display = mylist
     list_display_links = mylist
-    list_filter = mylist
+    list_filter = ('iit_name', 'blood_group', 'food', 'upto_56kg', 'upto_62kg', 'upto_69kg', 'upto_77kg', 'above_77kg',)
     search_fields = mylist
 admin.site.register(Sport_Weightlifting, AdminModel_Sport_Weightlifting)
 
 class AdminModel_Sport_All_Staff(admin.ModelAdmin):
-    mylist = ('id', 'iit_name', 'staff_name', 'sport_name', 'blood_group', 'mobile_no', 'email', 'photo', 'food', 'designation',)
+    mylist = ('id', 'iit_name', 'staff_name', 'sport_name', 'gender', 'blood_group', 'mobile_no', 'email', 'photo', 'food', 'designation',)
     list_display = mylist
     list_display_links = mylist
-    list_filter = mylist
+    list_filter = ('iit_name', 'sport_name', 'gender', 'blood_group', 'food',)
     search_fields = mylist
 admin.site.register(Staff, AdminModel_Sport_All_Staff)
 
@@ -60,7 +60,9 @@ class AdminModel_Sport_Athletics_Men(admin.ModelAdmin):
               'relay_4x100m', 'relay_4x400m')
     list_display = mylist
     list_display_links = mylist
-    list_filter = mylist
+    list_filter = ('iit_name', 'blood_group', 'food', '_100m', '_200m', '_400m', '_800m', '_1500m', '_5000m', 'hurdles_110m', 'hurdles_400m','high_jump',
+              'long_jump', 'triple_jump', 'pole_vault', 'shot_put', 'discuss_throw', 'javelin_throw', 'hammer_throw',
+              'relay_4x100m', 'relay_4x400m',)
     search_fields = mylist
 admin.site.register(Sport_Athletics_Men, AdminModel_Sport_Athletics_Men)
 
@@ -70,7 +72,8 @@ class AdminModel_Sport_Athletics_Women(admin.ModelAdmin):
               'relay_4x100m', 'relay_4x400m')
     list_display = mylist
     list_display_links = mylist
-    list_filter = mylist
+    list_filter = ('iit_name', 'blood_group', 'food', '_100m', '_200m', '_400m', '_800m', '_1500m', 'high_jump', 'long_jump', 'shot_put', 'discuss_throw',
+              'relay_4x100m', 'relay_4x400m')
     search_fields = mylist
 admin.site.register(Sport_Athletics_Women, AdminModel_Sport_Athletics_Women)
 
@@ -78,7 +81,7 @@ class AdminModel_Sport_All_Common_Sports(admin.ModelAdmin):
     mylist = ('id', 'iit_name', 'student_name', 'sport_name', 'blood_group', 'mobile_no', 'email', 'photo', 'food',)
     list_display = mylist
     list_display_links = mylist
-    list_filter = mylist
+    list_filter = ('iit_name', 'sport_name', 'blood_group', 'food',)
     search_fields = mylist
 admin.site.register(Sport_All_Common_Games_Men, AdminModel_Sport_All_Common_Sports)
 admin.site.register(Sport_All_Common_Games_Women, AdminModel_Sport_All_Common_Sports)
