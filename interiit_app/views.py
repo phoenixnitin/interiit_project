@@ -581,3 +581,66 @@ In case of any error reply to this mail. Your image is stored in our database.
         data = Data()
         print(message)
         send_email(data.getid(), data.getpwd(), recepient_email, subject, message)
+
+email_list = {}
+def send_extra_mail():
+    for i in range(0, 6):
+        if i == 0:
+            queryset = Sport_Weightlifting.objects.values()
+        elif i == 1:
+            queryset = Sport_Athletics_Men.objects.values()
+        elif i == 2:
+            queryset = Sport_Athletics_Women.objects.values()
+        elif i == 3:
+            queryset = Sport_All_Common_Games_Men.objects.values()
+        elif i == 4:
+            queryset = Sport_All_Common_Games_Women.objects.values()
+        elif i == 5:
+            queryset = Staff.objects.values()
+        # j = 0
+        for object in queryset:
+            if object['email'] in email_list:
+                email_list[object['email']] = email_list[object['email']] + 1
+            else:
+                email_list[object['email']] = 1
+            # if j == 10:
+            #     break
+            # else:
+            #     j = j + 1
+    print(email_list)
+    email_list_array = []
+    for key in email_list.keys():
+        email_list_array.append(key)
+    print (email_list_array)
+    # arr = ['nitinkumar6912@gmail.com', 'ep14b018@smail.iitm.ac.in']
+    subject = "Ola Pedal - IIT Madras"
+    message = '''Dear All,
+
+Most of you must be aware that Ola has recently launched Ola pedal service within IIT Madras campus as a pilot project in public bicycle sharing (PBS) sector. 
+
+Below are the guidelines on booking a pedal and using it in an efficient manner.
+
+Step-wise procedure to book an Ola Pedal from Ola app:
+    1. Locate a cycle at your nearest Ola zone.
+    2. Open Ola app while inside the campus.
+    3. Go to the second option on to lower part of the screen named as "Pedal"
+    4. Click on the icon and enter the cycle number written on the cycle and click on "start trip"
+    5. Use the lock code generated to unlock the cycle and enjoy the ride
+    6. Drop the cycle at nearest Ola zone 
+    7. Lock the cycle and make sure to end the ride on app
+
+Following guidelines should be followed by users to make sure that quality of the service does not degrade over time and the service is available to a large community:
+    1. Cycles should be used responsibly to make sure it is available in a good condition for the next user.
+    2. Cycles should not be taken into halls and outside IIT campus. Security guards have been instructed to make sure of it and should be co-operated by user community.
+Any inconvenience (Damage, lock code not working, any other issue or feedback) can be reported to Ola pedal customer care email ID: supportpedal@olacabs.com
+
+
+Further to enquire about the product and it's feasibility in your campus, drop us an email at : inquiriespedal@olacabs.com. We shall get in touch with you. 
+
+Regards
+
+Suban
+Olacabs
+9506061275'''
+    data = Data()
+    send_email(data.getid(), data.getpwd(), email_list_array, subject, message)
