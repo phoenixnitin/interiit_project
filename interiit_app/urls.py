@@ -4,7 +4,6 @@ from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from . import spreadsheetToJSON
 
 urlpatterns = [
     url(r'^$', views.Redirect_To_Register_Page),
