@@ -3,6 +3,8 @@ from . import views
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from . import spreadsheetToJSON
 
 urlpatterns = [
     url(r'^$', views.Redirect_To_Register_Page),
@@ -10,7 +12,12 @@ urlpatterns = [
     url(r'^sport/register/$', views.Register_Page.as_view(), name='register-page'),
     url(r'^download/$', views.Download_JSON, name='download-json'),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout, {'next_page': '/login?next=/download/'}, name='logout'),
+    url(r'^accounts/login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/login?next=/download/'}, name='logoutDownload'),
+    url(r'^logout-push/$', auth_views.logout, {'next_page': '/login?next=/push-notification/'}, name='logoutPush'),
+    url(r'^logout-already-sent/$', auth_views.logout, {'next_page': '/login?next=/already-sent-notification/'}, name='alreadySentNotification'),
+    url(r'^push-notification/$', login_required(views.push_notification_view.as_view()), name='push-notification'),
+    url(r'^already-sent-notification/$', login_required(views.Already_Sent_Notification), name='already-sent-notification'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

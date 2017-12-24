@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Sport_Weightlifting, Staff, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Sport_Weightlifting, Staff, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug, Push_Notifications
 
 # Register your models here.
 class AdminModel_Sport_Aquatics_Men(admin.ModelAdmin):
@@ -93,3 +93,11 @@ class AdminModel_Debug(admin.ModelAdmin):
     list_filter = mylist
     search_fields = mylist
 admin.site.register(debug, AdminModel_Debug)
+
+class AdminModel_Push_Notification(admin.ModelAdmin):
+    mylist = ('id', 'username', 'title', 'message', 'to', 'sound', 'push_page')
+    list_display = mylist
+    list_display_links = mylist
+    list_filter = ('title', 'username', 'to', 'sound', 'push_page')
+    search_fields = mylist
+admin.site.register(Push_Notifications, AdminModel_Push_Notification)

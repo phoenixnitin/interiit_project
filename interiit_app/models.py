@@ -352,3 +352,44 @@ class debug(models.Model):
     email = models.EmailField()
     phone = PhoneNumberField()
     mail_status = models.CharField(max_length=5, default='YES')
+
+class Push_Notifications(models.Model):
+    push_page_choice = (
+        ('HomePage', 'HomePage'),
+        ('LivePage', 'LivePage'),
+        ('GalleryPage', 'GalleryPage'),
+        ('SportsPage', 'SportsPage'),
+        ('GeneralChampionship', 'GeneralChampionship'),
+        ('SportAthletics', 'SportAthletics'),
+        ('SportBadminton', 'SportBadminton'),
+        ('SportBasketball', 'SportBasketball'),
+        ('SportCricket', 'SportCricket'),
+        ('SportFootball', 'SportFootball'),
+        ('SportHockey', 'SportHockey'),
+        ('SportSquash', 'SportSquash'),
+        ('SportSwimming', 'SportSwimming'),
+        ('SportTableTennis', 'SportTableTennis'),
+        ('SportTennis', 'SportTennis'),
+        ('SportVolleyball', 'SportVolleyball'),
+        ('SportWaterpolo', 'SportWaterpolo'),
+        ('SportWeightlifting', 'SportWeightlifting'),
+        ('MapsHomePage', 'MapsHomePage'),
+        ('MapsFreeRoam', 'MapsFreeRoam'),
+        ('MapsRoot', 'MapsRoot'),
+        ('ContactUsPage', 'ContactUsPage'),
+        ('NotificationPage', 'NotificationPage'),
+        ('OLAPedalPage', 'OLAPedalPage'),
+        ('play', 'PlayStoreLink'),
+        ('TodayEvent', 'TodayEvent'),
+        ('FanmodePage', 'FanmodePage'),
+    )
+    sound_choice = (
+        ('Yes', 'Yes'),
+        ('No', 'No'),
+    )
+    username = models.CharField(max_length=30, blank=True, null=True)
+    title = models.CharField(max_length=25, default='InterIIT')
+    message = models.CharField(max_length=160)
+    sound = models.CharField(max_length=5, default=None, choices=sound_choice)
+    to = models.CharField(max_length=255, default='All')
+    push_page = models.CharField(max_length=30, default='NotificationPage', choices=push_page_choice)

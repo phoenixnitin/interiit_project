@@ -1,0 +1,53 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{% static 'img/interiit_favicon.ico' %}">
+  <title>Inter IIT Sports Meet 2017</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Muli:400,300|Ubuntu:400,400italic|Gabriela|Roboto:400,300,700,100|Open+Sans:300italic,400italic,600italic,400,700,300,600|Open+Sans+Condensed:300|Exo+2">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/push-notification.css' %}">
+  <link rel="stylesheet" href="{% static 'css/registration-response.css' %}">
+  <script>
+    $(document).ready(function () {
+      $('#div_id_username').hide();
+    });
+  </script>
+</head>
+<body>
+{% block content %}
+  <div class="push-notification">
+    <div class="container">
+      <table class="table col-xs-12">
+        <tr>
+          <td><img src="http://www.interiit.com/app/assets/interiit_logo_main.png" class="col-xs-12 img-left"></td>
+          <td><img src="http://www.interiit.com/app/assets/interiit_logo.png" class="col-xs-12 img-right"></td>
+        </tr>
+      </table>
+      <h4>Send Notification</h4>
+      <p style="text-align: center">Your username is "{{ username }}". <a href="/logout-push">Click to Logout</a></p>
+      <div style="text-align: center" class="col-xs-12"><a href="/already-sent-notification" target="_blank"><button class="btn btn-default">Check already sent notifications</button></a></div>
+      {% if status == 'loadform' %}
+      <form method="POST" enctype='multipart/form-data'>
+                {% csrf_token %}
+                {% crispy form %}
+           <div class="submit-button col-xs-12" style="text-align: center;"><button type="submit" class="save btn btn-default">Send Notification</button></div>
+      </form>
+      {% endif %}
+      <div class="col-xs-12" style="text-align: center">
+        {% if status == 'True' %}
+          <img style="max-height: 150px" src="{% static 'img/feel_good1.png' %}">
+        {% endif %}
+        {% if status == 'False' %}
+          <img style="max-height: 150px" src="{% static 'img/feel_bad.png' %}">
+        {% endif %}
+      </div>
+      <div class="message">{{message}}</div>
+    </div>
+  </div>
+{% endblock %}
+</body>

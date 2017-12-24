@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Athletics_Men, Sport_Athletics_Women, Sport_Weightlifting, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Athletics_Men, Sport_Athletics_Women, Sport_Weightlifting, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, Push_Notifications
 from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
@@ -306,4 +306,22 @@ class Sport_All_Common_Games_Women_form(ModelForm):
         help_texts = {
             'mobile_no': _('Please enter your country code, if not from India'),
             'photo': _('Please upload passport size photo'),
+        }
+
+from django import forms
+class Push_Notification_form(ModelForm):
+    helper = FormHelper()
+    helper.form_tag = False
+    class Meta:
+        model = Push_Notifications
+        fields = '__all__'
+        help_texts = {
+            'title': _('Enter title of notification'),
+            'message': _('Enter body of notification'),
+            'sound': _('receiving device should give sound or not'),
+            'to': _('Who is the receiver'),
+            'push_page': _('This page will be pushed in the device when notification is clicked.'),
+        }
+        widgets = {
+            'message': forms.Textarea(attrs={'rows': "6"})
         }

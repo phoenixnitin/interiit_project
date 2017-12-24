@@ -1,0 +1,92 @@
+{% load staticfiles %}
+<head><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{% static 'img/interiit_favicon.ico' %}">
+  <title>Inter IIT Sports Meet 2017</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Muli:400,300|Ubuntu:400,400italic|Gabriela|Roboto:400,300,700,100|Open+Sans:300italic,400italic,600italic,400,700,300,600|Open+Sans+Condensed:300|Exo+2">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+  <script>
+    function send_again(username, title, message, sound, push_page, to) {
+      console.log(username, title, message, sound, push_page, to);
+      var s = (sound === 'Yes')?'default':none;
+      var payload = {
+        "notification": {
+          "title": title,
+          "body": message,
+          "sound": s,
+          "click_action": "FCM_PLUGIN_ACTIVITY"
+        },
+        "data": {
+          "page": push_page,
+          "message": message
+        },
+        "to": to,
+        "priority": "high",
+        "restricted_package_name": ""
+      };
+      $.ajax({
+        type: 'POST',
+        url: 'https://fcm.googleapis.com/fcm/send',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AIzaSyBKggf94MICpd1KcdOTRRbUg6sTDNNJZXc'
+        },
+        data: JSON.stringify(payload),
+        success: function(response){
+          console.log(response);
+        },
+        error: function(res) {
+          console.log(res);
+        }
+      });
+    }
+  </script>
+</head>
+<style>
+  .container{
+    background-color: white;
+    margin-top: 25px;
+    width: fit-content;
+    width: -moz-fit-content;
+  }
+  td:nth-child(7){
+    height: 50px;
+    max-width: 700px;
+    display: inline-block;
+    overflow: scroll;
+    white-space: nowrap;
+  }
+  td:last-child{
+    cursor: all-scroll;
+  }
+</style>
+<body>
+  <div class="container">
+    <h3><a href="/push-notification" target="_blank"><button style="margin-right: 20px;" class="btn btn-primary">Send Push Notifications</button></a><span style="margin-bottom: 15px;"><a href="/logout-already-sent/">Logout</a></span></h3>
+    <table class="table table-bordered table-hover col-xs-12" style="margin-bottom: 25px !important;">
+      <th>ID</th>
+      <th>Username</th>
+      <th>Title</th>
+      <th>Message</th>
+      <th>Sound</th>
+      <th>Pushed Page</th>
+      <th>To</th>
+      <th>Send Again</th>
+      {% for e in querylist reversed %}
+      <tr>
+        <td><p>{{ e.id }}</p></td>
+        <td><p>{{ e.username }}</p></td>
+        <td><p>{{ e.title }}</p></td>
+        <td><p>{{ e.message }}</p></td>
+        <td><p>{{ e.sound }}</p></td>
+        <td><p>{{ e.push_page }}</p></td>
+        <td><p>{{ e.to }}</p></td>
+        <td onclick="send_again('{{ e.username }}', '{{ e.title }}', '{{ e.message }}', '{{ e.sound }}', '{{ e.push_page }}', '{{ e.to }}')"><p>Send again</p></td>
+      </tr>
+      {% endfor %}
+    </table><br><br>
+  </div>
+</body>

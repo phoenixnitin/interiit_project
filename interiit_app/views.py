@@ -1,11 +1,11 @@
 
 from django.shortcuts import render, HttpResponse
 from django.views import View
-from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form, Sports_Weightlifting_form, Staff_form, Sports_Athletics_Men_form, Sports_Athletics_Women_form, Sport_All_Common_Games_Men_form, Sport_All_Common_Games_Women_form
+from .forms import Sports_Aquatics_Men_form, Sports_Aquatics_Women_form, Sports_Aquatics_Staff_form, Sports_Weightlifting_form, Staff_form, Sports_Athletics_Men_form, Sports_Athletics_Women_form, Sport_All_Common_Games_Men_form, Sport_All_Common_Games_Women_form, Push_Notification_form
 from .serializer import Sport_Aquatics_Men_serializer, Sport_Aquatics_Women_serializer, Sport_Aquatics_Staff_serializer,Sport_Weightlifting_serializer, Staff_serializer, Sport_Athletics_Men_serializer, Sport_Athletics_Women_serializer, Sport_All_Common_Games_Men_serializer, Sport_All_Common_Games_Women_serializer
 from rest_framework import mixins, viewsets
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Weightlifting, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug
+from .models import Sport_Aquatics_Men, Sport_Aquatics_Women, Sport_Aquatics_Staff, Staff, Sport_Weightlifting, Sport_Athletics_Men, Sport_Athletics_Women, Sport_All_Common_Games_Men, Sport_All_Common_Games_Women, debug, Push_Notifications
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -16,27 +16,41 @@ from .response_message import response
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-def send_email(user, pwd, recipient, subject, body, instance=None, category=None, sport_name=None):
+def send_email(user, pwd, recipient, subject, body, instance=None, category=None, sport_name=None, files=None):
     import smtplib
+    from os.path import basename
+    from email.mime.application import MIMEApplication
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from email.utils import COMMASPACE, formatdate
+
     gmail_user = user
     gmail_pwd = pwd
     FROM = user
     TO = recipient if type(recipient) is list else [recipient]
     SUBJECT = subject
     TEXT = body
-
-    message = """From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    assert isinstance(TO, list)
+    # message = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    message = MIMEMultipart(From=FROM, Date=formatdate(localtime=True), Subject=SUBJECT)
+    message['subject']=SUBJECT
+    message['to']=COMMASPACE.join(TO)
+    message.attach(MIMEText(TEXT))
+    if files is not None:
+        with open(files, 'rb') as fil:
+            message.attach(MIMEApplication(fil.read(), Content_Disposition='attachment; filename="%s"'%basename(files), Name=basename(files)))
     try:
         server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
         server.starttls()
         server.login(gmail_user, gmail_pwd)
-        server.sendmail(FROM, TO, message)
+        server.sendmail(FROM, TO, message.as_string())
         server.close()
         if instance is not None:
             debug_view(instance, category, sport_name, 'YES')
         print('successfully sent the mail')
-    except:
+    except :
+        # print(str(error))
         print("failed to send mail")
         if instance is not None:
             debug_view(instance, category, sport_name, 'NO')
@@ -319,6 +333,59 @@ class Register_Page(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'register.html')
 
+import json
+from django.contrib.auth.models import User
+class push_notification_view(View, User):
+    def get(self, request, *args, **kwargs):
+        form = Push_Notification_form
+        print(request.user)
+        # print(User.get_username(), User.get_full_name())
+        return render(request, 'push-notification.html', {'form': form, 'status': 'loadform', 'username': request.user})
+    def post(self, request, *args, **kwargs):
+        data = request.POST.dict()
+        print(data, request.user)
+        request.POST._mutable = True
+        request.POST['username'] = request.user
+        if data['sound'] == 'Yes':
+            sound = "default"
+        else:
+            sound = None
+
+        if data['to'] == 'All':
+            recepient = "/topics/msgall"
+        else:
+            recepient = data['to']
+        url = "https://fcm.googleapis.com/fcm/send"
+        payload = {
+            "notification": {
+                "title": data['title'],
+                "body": data['message'],
+                "sound": sound,
+                "click_action": "FCM_PLUGIN_ACTIVITY"
+            },
+            "data": {
+                "page": data['push_page'],
+                "message": data['message']
+            },
+            "to": recepient,
+            "priority": "high",
+            "restricted_package_name": ""
+        }
+        headers = {"content-type": "application/json", "authorization": "key=AIzaSyBKggf94MICpd1KcdOTRRbUg6sTDNNJZXc"}
+        import requests
+        resp = requests.post(url, data=json.dumps(payload), headers=headers)
+        print(resp.status_code)
+        form = Push_Notification_form(request.POST)
+        if resp.status_code == requests.codes.ok:
+            resp1 = 'True'
+            form.full_clean()
+            formsaved = form.save()
+            message = "Notification sent successfully."
+        else:
+            resp1 = 'False'
+            message = "Failed to check notification. Please check if all field are filled correctly."
+        return render(request, 'push-notification.html', {'status': resp1, 'message': message, 'username': request.user})
+
 def Redirect_To_Register_Page(request):
     return redirect('/sport/register/')
 
@@ -326,6 +393,12 @@ def Redirect_To_Register_Page(request):
 def Download_JSON(request):
     if request.method == 'GET':
         return render(request, 'download.html')
+def Already_Sent_Notification(request):
+    querylist = Push_Notifications.objects.all()
+    print(querylist)
+    if request.method == 'GET':
+        return render(request, 'already-sent-notifications.html', {'querylist': querylist})
+
 
 class json_aquatics_men(LoginRequiredMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = Sport_Aquatics_Men_serializer
@@ -607,40 +680,26 @@ def send_extra_mail():
             #     break
             # else:
             #     j = j + 1
-    print(email_list)
-    email_list_array = []
+    #print(email_list)
+    email_list_array = ['nitinkumar6912@gmail.com']
     for key in email_list.keys():
         email_list_array.append(key)
     print (email_list_array)
     # arr = ['nitinkumar6912@gmail.com', 'ep14b018@smail.iitm.ac.in']
-    subject = "Ola Pedal - IIT Madras"
-    message = '''Dear All,
+    subject = "Invitation - Closing Ceremony"
+    message = '''23 battalions, 13 battlefields, 9 days of epic rivalry and awe inspiring sportsmanship, and it all comes to a thrilling end. The 52nd Inter IIT Sports Meet was a phenomenal journey. A journey that gave the most fabulous stories. One that made us laugh, cry and bond together as a family, working and practicing day and night, meeting new people. One that left us with memories, tales and experiences that would last unto eternity and beyond. As it winds to a close, join us in crafting a fitting epilogue to this sporting saga. For maybe it was your Game, but it always was Our story. 
 
-Most of you must be aware that Ola has recently launched Ola pedal service within IIT Madras campus as a pilot project in public bicycle sharing (PBS) sector. 
+We, the 52nd Inter IIT Organizing Committee cordially solicit your esteemed presence at the Closing Ceremony to be held at Manohar C Watsa Stadium at 3 pm today. 
 
-Below are the guidelines on booking a pedal and using it in an efficient manner.
+The closing ceremony will also have the trophy distribution for the coveted and tightly fought General Championship, Women's General Championship and so on. Turn up to cheer all the champions. For in trying and persevering and giving it all they've got, everyone is a champion.
 
-Step-wise procedure to book an Ola Pedal from Ola app:
-    1. Locate a cycle at your nearest Ola zone.
-    2. Open Ola app while inside the campus.
-    3. Go to the second option on to lower part of the screen named as "Pedal"
-    4. Click on the icon and enter the cycle number written on the cycle and click on "start trip"
-    5. Use the lock code generated to unlock the cycle and enjoy the ride
-    6. Drop the cycle at nearest Ola zone 
-    7. Lock the cycle and make sure to end the ride on app
+One last time, 
+Inter IIT Organizing Committee
+52nd Inter IIT Sports Meet
+IIT Madras
+#MADrush
 
-Following guidelines should be followed by users to make sure that quality of the service does not degrade over time and the service is available to a large community:
-    1. Cycles should be used responsibly to make sure it is available in a good condition for the next user.
-    2. Cycles should not be taken into halls and outside IIT campus. Security guards have been instructed to make sure of it and should be co-operated by user community.
-Any inconvenience (Damage, lock code not working, any other issue or feedback) can be reported to Ola pedal customer care email ID: supportpedal@olacabs.com
-
-
-Further to enquire about the product and it's feasibility in your campus, drop us an email at : inquiriespedal@olacabs.com. We shall get in touch with you. 
-
-Regards
-
-Suban
-Olacabs
-9506061275'''
+Your Game. Our Story.'''
     data = Data()
-    send_email(data.getid(), data.getpwd(), email_list_array, subject, message)
+    print(data.getid(), data.getpwd(), email_list_array, subject, message, '/home/light/Documents/all_static_items/documents/Closing_Ceremony_Invitation.pdf')
+    send_email(data.getid(), data.getpwd(), email_list_array, subject, message, files='/home/light/Documents/all_static_items/documents/Closing_Ceremony_Invitation.pdf')
