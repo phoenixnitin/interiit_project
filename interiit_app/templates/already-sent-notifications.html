@@ -12,6 +12,7 @@
     function send_again(username, title, message, sound, push_page, to) {
       console.log(username, title, message, sound, push_page, to);
       var s = (sound === 'Yes')?'default':none;
+      var send_to = (to === 'All')?'/topics/msgall': to;
       var payload = {
         "notification": {
           "title": title,
@@ -23,7 +24,7 @@
           "page": push_page,
           "message": message
         },
-        "to": to,
+        "to": send_to,
         "priority": "high",
         "restricted_package_name": ""
       };
